@@ -1,4 +1,5 @@
 import boto3
+import configparser
 from datetime import datetime, timedelta
 from dbManager import getLastCheckTimestamp, updateLastCheckTimestamp
 from feedParser import getNewFeeds
@@ -8,6 +9,7 @@ AWSRegion = 'ap-southeast-1'
 profile = 'FinTech'
 
 def getNews(event, context):
+
   # get last check timestamp
   lastCheckTimestamp = getLastCheckTimestamp()
   print(lastCheckTimestamp)
