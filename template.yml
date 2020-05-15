@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Crawl customer news
+Resources:
+  GetNewsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getCustomerNews
+      Handler: feedHandler.getNews
+      Runtime: python3.6
+      CodeUri: ./
+      Role: arn:aws:iam::039585023909:role/lambda-getCustomerNews
+      Timeout: 900
