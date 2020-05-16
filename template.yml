@@ -9,5 +9,5 @@ Resources:
       Handler: feedHandler.getNews
       Runtime: python3.6
       CodeUri: ./
-      Role: arn:aws:iam::039585023909:role/lambda-getCustomerNews
+      Role: arn:aws:iam::479756444842:role/lambda-news-feed-handler
       Timeout: 900
