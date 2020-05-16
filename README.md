@@ -27,11 +27,8 @@ Following are not exact match, but it explains how cross account works with
 ### AWS learning points
 
 1. Setup different accounts for dev/prod
-1. Copying dynamodb tables from an account to another is possible through DataPipeline
-
-* Task running can be a bit slower than expected
-
-3. Options for cross-account deployments
+1. Copying dynamodb tables from an account to another is possible through DataPipeline. But it is slow, erroneous and hard to debug. "scripts/copyDynamoTablesAcrossAccounts.py" is not ideal (in term of security) but a quick fix.
+1. Options for cross-account deployments
 
 * CloudFormation stackset or CloudFormation cross account (through assume-role) 
   * CodePipeline can only deploy one artifact (eg CloudFormation template) per action

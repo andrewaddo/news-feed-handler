@@ -18,5 +18,5 @@ Resources:
       Handler: feedHandler.getNews
       Runtime: python3.6
       CodeUri: ./
-      Role: !Sub arn:aws:iam::${Account}:role/lambda-news-feed-handler
+      Role: !Sub arn:aws:iam::${Account}:role/lambda-nfh
       Timeout: 900
