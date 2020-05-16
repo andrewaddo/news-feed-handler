@@ -19,6 +19,13 @@ Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, 
 ### AWS learning points
 
 1. Setup different accounts for dev/prod
-1. Copying dynamodb tables from an account to another is possible througth DataPipeline
+1. Copying dynamodb tables from an account to another is possible through DataPipeline
 
 * Task running can be a bit slower than expected
+
+3. Options for cross-account deployments
+
+* CloudFormation stackset
+* CloudFormation cross account (through assume-role)
+* Put artifacts to S3 and have separate pipelines on remote accounts (not ideal - I would want CICD centralized at one management account)
+* Have another tool such as jenkins to do this job
