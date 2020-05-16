@@ -19,5 +19,5 @@ Resources:
       Runtime: python3.6
       CodeUri: ./
       Role:
-        - !Sub arn:aws:iam::${Account}:role/lambda-news-feed-handler
+        - !Sub 'arn:aws:iam::${Account}:role/lambda-news-feed-handler'
       Timeout: 900
