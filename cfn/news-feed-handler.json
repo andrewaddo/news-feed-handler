@@ -50,7 +50,7 @@
                         },
                         "runOrder": 1,
                         "configuration": {
-                            "ProjectName": "news-feed-handler-build"
+                            "ProjectName": "build-nfh"
                         },
                         "outputArtifacts": [
                             {
@@ -130,6 +130,6 @@
                 ]
             }
         ],
-        "version": 7
+        "version": 3
     }
 }
