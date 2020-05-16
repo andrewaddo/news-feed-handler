@@ -1,6 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Crawl customer news
+Parameters:
+  ProjectName:
+    Description: News feed handler
+    Type: String
+    Default: News feed handler
+  Account:
+    Description: AWS AccountNumber
+    Type: Number
+
 Resources:
   GetNewsFunction:
     Type: AWS::Serverless::Function
@@ -9,5 +18,6 @@ Resources:
       Handler: feedHandler.getNews
       Runtime: python3.6
       CodeUri: ./
-      Role: arn:aws:iam::479756444842:role/lambda-news-feed-handler
+      Role:
+        - !Sub arn:aws:iam::${Account}:role/lambda-news-feed-handler
       Timeout: 900
