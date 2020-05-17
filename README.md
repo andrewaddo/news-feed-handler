@@ -6,6 +6,10 @@ Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, 
 
 ![architecture](./img/architecture.png "high-level architecture")
 
+## Data model
+
+![data model](./img/data-model.png "data model")
+
 ## CICD cross accounts
 
 ![cicd](./img/cross-account-cicd.png "cicd")
@@ -21,10 +25,16 @@ Following are not exact match, but it explains how cross account works with
 Importants:
 
 1. Both CodeBuild's service role and CodePipeline's service role need to be configured as KMS key's users
-1. 
-1. On remote accounts, following are required roles:
+1. On the CICD account, following are required components
 
-* Account role that allows CICD account to assume necessary roles in remote account
+* Roles for: CodePipeline, CodeBuild, CloudFormation (for Deploy stage), and Lambda function. CodePipeline's role must have policy allowing assuming roles in remote accounts.
+
+3. On remote accounts, following are required components
+
+* Account role that allows CICD account to assume necessary roles in remote account. This role must have
+  * CloudFormation
+  * iam:PassRole
+  * Access to CICD's S3 artifact bucket
 * Service role for the pipeline, in this case specifically for the deploy stage (cloudformation)
 * Lambda role for the lambda function
 
@@ -42,11 +52,12 @@ pip install requests
 
 ### AWS learning points
 
+1. Registering accounts to Isengard deletes lots of disruptive resources (IAM roles, etc)
 1. Setup different accounts for dev/prod
 1. Copying dynamodb tables from an account to another is possible through DataPipeline. But it is slow, erroneous and hard to debug. "scripts/copyDynamoTablesAcrossAccounts.py" is not ideal (in term of security) but a quick fix.
 1. Options for cross-account deployments
 
-* CloudFormation stackset or CloudFormation cross account (through assume-role) 
+* CloudFormation stackset or CloudFormation cross account (through assume-role)
   * CodePipeline can only deploy one artifact (eg CloudFormation template) per action
   * CodePipeline cannot directly deploy a StackSet, which would allow for deployment of templates across accounts. StackSets can be deployed by calling CodeBuild / Lambda.
   * CodePipeline can deploy to other accounts by specifying a role in that other account. This only deploys to one account at a time
