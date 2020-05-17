@@ -3,7 +3,7 @@ from dbManager import getRecordCount
 
 def test_importCustomerConfig():
   importCustomerConfigToDB('FinTech.csv')
-  assert getRecordCount('cf_customers', 'Profile', 'FinTech') == 168 # credoLab duplicate
+  assert getRecordCount('nfh_SearchConfig', 'Profile', 'FinTech') == 168 # credoLab duplicate
 
 def test_ConstructRssUrl():
   string = '"abc de"'

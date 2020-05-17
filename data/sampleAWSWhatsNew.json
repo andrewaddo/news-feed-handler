@@ -1,0 +1,48 @@
+{
+  "links": [
+    {
+      "rel": "alternate",
+      "type": "text/html",
+      "href": "https://aws.amazon.com/about-aws/whats-new/2020/05/amazon-cloudwatch-now-monitors-prometheus-metrics-now-in-beta/"
+    }
+  ],
+  "link": "https://aws.amazon.com/about-aws/whats-new/2020/05/amazon-cloudwatch-now-monitors-prometheus-metrics-now-in-beta/",
+  "id": "3f2210115a1f8eceeb92229c06ef5aa05f2bd8ba",
+  "guidislink": False,
+  "title": "Amazon CloudWatch now monitors Prometheus metrics - Now in Beta",
+  "title_detail": {
+    "type": "text/plain",
+    "language": None,
+    "base": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
+    "value": "Amazon CloudWatch now monitors Prometheus metrics - Now in Beta"
+  },
+  "summary": "<p>You can use Amazon CloudWatch to monitor Prometheus metrics from <a href=\"/eks/\">Amazon Elastic Kubernetes Service (EKS)</a> and <a href=\"/kubernetes/\">Kubernetes</a> clusters, now available in beta. With this new feature, DevOps teams can automatically discover services for containerized workloads such as AWS App Mesh, NGINX, and Java/JMX. They can also expose custom metrics on those services, and ingest the Prometheus metrics in CloudWatch. By curating the collection and aggregation of Prometheus metrics, CloudWatch users can monitor, troubleshoot, and alarm on application performance degradation and failures faster while reducing the number of monitoring tools required. <br /> </p>",
+  "summary_detail": {
+    "type": "text/html",
+    "language": None,
+    "base": "https://aws.amazon.com/about-aws/whats-new/recent/feed/",
+    "value": "<p>You can use Amazon CloudWatch to monitor Prometheus metrics from <a href=\"/eks/\">Amazon Elastic Kubernetes Service (EKS)</a> and <a href=\"/kubernetes/\">Kubernetes</a> clusters, now available in beta. With this new feature, DevOps teams can automatically discover services for containerized workloads such as AWS App Mesh, NGINX, and Java/JMX. They can also expose custom metrics on those services, and ingest the Prometheus metrics in CloudWatch. By curating the collection and aggregation of Prometheus metrics, CloudWatch users can monitor, troubleshoot, and alarm on application performance degradation and failures faster while reducing the number of monitoring tools required. <br /> </p>"
+  },
+  "published": "Tue, 05 May 2020 22:52:39 +0000",
+  "published_parsed": time.struct_time(
+    (tm_year = 2020),
+    (tm_mon = 5),
+    (tm_mday = 5),
+    (tm_hour = 22),
+    (tm_min = 52),
+    (tm_sec = 39),
+    (tm_wday = 1),
+    (tm_yday = 126),
+    (tm_isdst = 0)
+  ),
+  "tags": [
+    {
+      "term": "marketing:marchitecture/management-and-governance,general:products/amazon-cloudwatch,general:products/amazon-ecs,marketing:marchitecture/compute,general:products/aws-fargate",
+      "scheme": None,
+      "label": None
+    }
+  ],
+  "authors": [{ "email": "aws@amazon.com" }],
+  "author": "aws@amazon.com",
+  "author_detail": { "email": "aws@amazon.com" }
+}

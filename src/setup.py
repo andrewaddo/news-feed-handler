@@ -21,7 +21,7 @@ def convertCSVToJson(file):
 
 def writeToDB(jsonData):
   db = boto3.resource('dynamodb')
-  table = db.Table('cf_customers')
+  table = db.Table('nfh_SearchConfig')
   with table.batch_writer() as batch:
     for item in jsonData:
       batch.put_item(Item=item)

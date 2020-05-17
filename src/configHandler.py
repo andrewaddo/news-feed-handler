@@ -1,11 +1,21 @@
 import configparser
+from dbManager import getProfileConfig, getSearchConfig
 
 class ConfigHandler:
 
-  def __init__(self):
-    self.config = configparser.ConfigParser()
-    self.config.read('conf/properties.conf')
-    # TODO: load additional config from DB
+  def __init__(self, profile):
+    # self.config = configparser.ConfigParser()
+    # self.config.read('conf/properties.conf')
+    # DONE: load additional config from DB
+    self.profileConfig = getProfileConfig(profile)[0]
+    self.searchConfig = getSearchConfig(profile)
+    print("")
 
-  def getKeyValue(self, key):
-    return self.config['main'][key]
+  def getSearchConfig(self):
+    return self.searchConfig
+
+  def getLastCheckTimestmap(self):
+    return self.profileConfig['LastCheckTimestamp']
+  
+  def getWebhookURL(self):
+    return self.profileConfig['WebhookURL']

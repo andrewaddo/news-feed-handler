@@ -10,43 +10,46 @@ dynamodb = boto3.resource('dynamodb')
 
 # get customer list
 def getCustomerConfig(profile):
-  table = dynamodb.Table('cf_customers')
+  table = dynamodb.Table('nfh_SearchConfig')
   result = table.query(
     KeyConditionExpression = Key("Profile").eq(profile)
   )
   # print(result)
   return result['Items'] if 'Items' in result else None
 
-# get last check timestamp
-def getLastCheckTimestamp():
-  table = dynamodb.Table('cf_config')
-  lastCheckTimestamp = table.get_item(
-    Key={'Key': 'lastCheckTimestamp'}
+# get profile config
+def getProfileConfig(profile):
+  table = dynamodb.Table('nfh_ProfileConfig')
+  result = table.query(
+    KeyConditionExpression = Key("Profile").eq(profile)
   )
-  # print("lastCheckTimestamp is ", lastCheckTimestamp)
-  return lastCheckTimestamp['Item']['Value'] if "Item" in lastCheckTimestamp else None
+  print("getProfileConfig", result)
+  return result['Items'] if 'Items' in result else None
+
+# get search config
+def getSearchConfig(profile):
+  table = dynamodb.Table('nfh_SearchConfig')
+  result = table.query(
+    KeyConditionExpression = Key("Profile").eq(profile)
+  )
+  print("getSearchConfig", result)
+  return result['Items'] if 'Items' in result else None
 
 # update last check timestamp
 def updateLastCheckTimestamp(newCheckTimestamp):
-  table = dynamodb.Table('cf_config')
-  if getLastCheckTimestamp() is None:
-    table.put_item(Item = {
-      'Key': 'lastCheckTimestamp', 
-      'Value': newCheckTimestamp
-    } )
-  else:
-    table.update_item(
-      Key = {
-        'Key': 'lastCheckTimestamp'
-      },
-      UpdateExpression = "set #attr = :val",
-      ExpressionAttributeNames = {
-        '#attr': 'Value'
-      },
-      ExpressionAttributeValues = {
-          ':val': newCheckTimestamp
-      }
-    )
+  table = dynamodb.Table('nfh_ProfileConfig')
+  table.update_item(
+    Key = {
+      'Profile': 'Profile'
+    },
+    UpdateExpression = "set #attr = :val",
+    ExpressionAttributeNames = {
+      '#attr': 'LastCheckTimestamp'
+    },
+    ExpressionAttributeValues = {
+        ':val': newCheckTimestamp
+    }
+  )
   return newCheckTimestamp
 
 def recordNewFeeds(customer, feed):
@@ -56,11 +59,11 @@ def recordNewFeeds(customer, feed):
   try: 
     table.put_item(
       Item={
-        'Customer': customer["Customer"],
+        'Customer': customer['SearchItem'],
         'Date': feed.published,
         'Timestamp': curr_date.isoformat(),
         'Title': feed.title,
-        'Source': json.dumps(feed.source),
+        'Source': json.dumps(feed.source) if hasattr(feed, 'source') else None,
         'Feed': json.dumps(feed)
       },
       ConditionExpression='attribute_not_exists(Customer) or attribute_not_exists(Title)'
