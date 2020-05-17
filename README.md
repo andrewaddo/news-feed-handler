@@ -16,13 +16,29 @@ Following are not exact match, but it explains how cross account works with
 
 1. Cross account role (PassRole) and CFN role on the remote account
 
-![cross-account](https://aws.amazon.com/blogs/devops/aws-building-a-secure-cross-account-continuous-delivery-pipeline/ "cross-account")
+![cross-account](./img/details-cross-account-pipeline.png "cross-account")
+
+Importants:
+
+1. Both CodeBuild's service role and CodePipeline's service role need to be configured as KMS key's users
+1. 
+1. On remote accounts, following are required roles:
+
+* Account role that allows CICD account to assume necessary roles in remote account
+* Service role for the pipeline, in this case specifically for the deploy stage (cloudformation)
+* Lambda role for the lambda function
 
 ## Notes
 
 ### Google news RSS format
 
 [https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=%22search+word%22](https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=%22search+word%22)
+
+### Installations
+
+pip install boto3
+pip install feedparser
+pip install requests
 
 ### AWS learning points
 
@@ -45,4 +61,6 @@ Following are not exact match, but it explains how cross account works with
 
 * For Lambda CloudFormation, CodeBuild generate another template (i.e. .yml) which refers to a zip package with actual code. This zip package may be stored in an S3 bucket different from the CodePipeline's artifacts bucket. Since accountB's CloudFormation (which uses outputtemplate.yml) it needs permission to access to the S3 bucket that has the zip package.
 * KMS key is used by CodeBuild to create encrypted artifacts. For Lambda CloudFormation build, artifacts only contains outputtemplate.yml
+
+5. There is no obvious way to get more logs from CodePipeline's deploy stage. Sometimes, very brief error message made it super hard to debug.
 
