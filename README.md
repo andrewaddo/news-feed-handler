@@ -24,16 +24,17 @@ Following are not exact match, but it explains how cross account works with Code
 
 **Important**:
 
-1. Both CodeBuild's service role and CodePipeline's service role need to be configured as KMS key's users
-1. On the CICD account, following are required components
+1. This option is selected (vs. jenkins, circle.ci) so it can be applied to other non-lambda workloads.
+1. Both CodeBuild's service role and CodePipeline's service role need to be configured as KMS key's users.
+1. On the CICD account, following are required components.
    * Roles for: CodePipeline, CodeBuild, CloudFormation (for Deploy stage), and Lambda function. CodePipeline's role must have policy allowing assuming roles in remote accounts.
-1. On remote accounts, following are required components
+1. On remote accounts, following are required components.
    * Account role that allows CICD account to assume necessary roles in remote account. This role must have
      * CloudFormation
      * iam:PassRole
      * Access to CICD's S3 artifact bucket
-   * Service role for the pipeline, in this case specifically for the deploy stage (cloudformation)
-   * Lambda role for the lambda function
+   * Service role for the pipeline, in this case specifically for the deploy stage (cloudformation).
+   * Lambda role for the lambda function.
 
 ## Notes
 
@@ -60,7 +61,7 @@ pip install requests
       * CodeBuild started as part of a CodePipeline running in a container gives more flexibility, you can do whatever you like here really
       * CodePipeline can start Lambda, which is very flexible.
    1. Put artifacts to S3 and have separate pipelines on remote accounts (not ideal - I would want CICD centralized at one management account)
-   1. Have another tool such as jenkins to do this job
+   1. Have another tool such as jenkins to do this job. Probably use SLS for lambda if this is the chosen option.
 1. Detailed notes on cross-account deployment with CodePipeline and CloudFormation
 [ref](https://aws.amazon.com/premiumsupport/knowledge-center/codepipeline-deploy-cloudformation/)
    * For Lambda CloudFormation, CodeBuild generate another template (i.e. .yml) which refers to a zip package with actual code. This zip package may be stored in an S3 bucket different from the CodePipeline's artifacts bucket. Since accountB's CloudFormation (which uses outputtemplate.yml) it needs permission to access to the S3 bucket that has the zip package.
