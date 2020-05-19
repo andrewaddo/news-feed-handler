@@ -1,0 +1,398 @@
+:root {
+
+  /* Colors */
+  --amazonOrange: #FF9900;
+  --lightAmazonOrange: #FFAC31;
+  --darkAmazonOrange: #E88B01;
+  --squidInk: #232F3E;
+  --lightSquidInk: #31465F;
+  --deepSquidInk: #152939;
+  --grey: #828282;
+  --lightGrey: #C4C4C4;
+  --silver: #E1E4EA;
+  --darkBlue: #31465F;
+  --red: #DD3F5B;
+  --white: #FFFFFF;
+  
+
+  /* Theme */
+  --button-color: var(--white);
+  --button-background-color: var(--amazonOrange);
+  --button-click: var(--darkAmazonOrange);
+  --link-color: var(--amazonOrange);
+  --form-color: var(--white);
+  --input-color: var(--deepSquidInk);
+  --input-background-color: var(--white);
+
+  --font-family: "Amazon Ember","Helvetica Neue Light","Helvetica Neue","Helvetica" ,"Arial","sans-serif";
+  --body-background: #F8F4F4;
+
+  /** Angular Theme **/
+  --component-width-desktop: 460px;
+  --component-width-mobile: 100%;
+
+  --color-primary: #FF9900;
+  --color-primary-accent: #232F3E;
+  --color-primary-highlight: #FFC46D;
+  
+  --color-background:#232F3E;
+
+  --color-secondary: #152939;
+  --color-secondary-accent: #31465F;
+
+  --color-danger: #DD3F5B;
+  --color-error: #D0021B;
+
+  --color-accent-brown: #828282;
+  --color-accent-blue: #E1E4EA;
+
+  --gradient-blaze: linear-gradient(270deg, #FFC300 0%, #FF9000 100%);
+
+  --color-blue: #007EB9;
+  --color-purple: #527FFF;
+  --color-gray: #828282;
+  --color-white: #FFFFFF;
+
+  --input-border: 1px solid #C4C4C4;
+  --input-padding: 0.5em 0.5em 0.3em 1em;
+
+  --box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.15);
+  --button-height: 42px;
+
+  --interactions-conversation-height: 250px;
+
+  /* Ionic Theme */
+  
+  /** primary **/
+  --ion-color-primary: #FF9900;
+  --ion-color-primary-rgb: 255,153,0;
+  --ion-color-primary-contrast: #fff;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #232F3E;
+  --ion-color-primary-tint: #FFC46D;
+
+  /** secondary **/
+  --ion-color-secondary: #32db64;
+  --ion-color-secondary-rgb: 50,219,100;
+  --ion-color-secondary-contrast: #fff;
+  --ion-color-secondary-contrast-rgb: 255,255,255;
+  --ion-color-secondary-shade: #2cc158;
+  --ion-color-secondary-tint: #47df74;
+
+  /** tertiary **/
+  --ion-color-tertiary: #f4a942;
+  --ion-color-tertiary-rgb: 244,169,66;
+  --ion-color-tertiary-contrast: #fff;
+  --ion-color-tertiary-contrast-rgb: 255,255,255;
+  --ion-color-tertiary-shade: #d7953a;
+  --ion-color-tertiary-tint: #f5b255;
+
+  /** success **/
+  --ion-color-success: #10dc60;
+  --ion-color-success-rgb: 16,220,96;
+  --ion-color-success-contrast: #fff;
+  --ion-color-success-contrast-rgb: 255,255,255;
+  --ion-color-success-shade: #0ec254;
+  --ion-color-success-tint: #28e070;
+
+  /** warning **/
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255,206,0;
+  --ion-color-warning-contrast: #000;
+  --ion-color-warning-contrast-rgb: 0,0,0;
+  --ion-color-warning-shade: #e0b500;
+  --ion-color-warning-tint: #ffd31a;
+
+  /** danger **/
+  --ion-color-danger: #f53d3d;
+  --ion-color-danger-rgb: 245,61,61;
+  --ion-color-danger-contrast: #fff;
+  --ion-color-danger-contrast-rgb: 255,255,255;
+  --ion-color-danger-shade: #d83636;
+  --ion-color-danger-tint: #f65050;
+
+  /** light **/
+  --ion-color-light: #f4f4f4;
+  --ion-color-light-rgb: 244,244,244;
+  --ion-color-light-contrast: #000;
+  --ion-color-light-contrast-rgb: 0,0,0;
+  --ion-color-light-shade: #d7d7d7;
+  --ion-color-light-tint: #f5f5f5;
+
+  /** medium **/
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152,154,162;
+  --ion-color-medium-contrast: #000;
+  --ion-color-medium-contrast-rgb: 0,0,0;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+  
+  /** dark **/
+  --ion-color-dark: #222;
+  --ion-color-dark-rgb: 34,34,34;
+  --ion-color-dark-contrast: #fff;
+  --ion-color-dark-contrast-rgb: 255,255,255;
+  --ion-color-dark-shade: #1e1e1e;
+  --ion-color-dark-tint: #383838;
+}
+
+.hidden { display:none; }
+
+.container {
+  font-weight: 400;
+  max-width: 600px;
+  margin-top: 20px;
+  margin: 5% auto 50px;
+}
+
+.actionRow {
+  margin-bottom: 15px;
+}
+
+.sectionHeader {
+  color: var(--deepSquidInk);
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sectionHeaderHint {
+  color: var(--grey);
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.sectionBody {
+  margin-bottom: 30px;
+}
+
+.sectionFooter {
+  font-size: 14px;
+  color: var(--grey);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+
+.sectionFooterPrimaryContent {
+  margin-left: auto;
+}
+
+.sectionFooterSecondaryContent {
+  margin-right: auto;
+  align-self: center;
+}
+
+@media only screen and (max-width: 599px) {
+  .sectionFooter {
+    flex-wrap: wrap;
+  }
+
+  .sectionFooterPrimaryContent {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .sectionFooterPrimaryContent > button {
+    width: 100%;
+  }
+
+  .sectionFooterSecondaryContent {
+    text-align: center;
+    flex: 0 0 100%;
+  }
+}
+
+.formContainer {
+  text-align: center;
+  margin-top: 20px;
+  margin: 5% auto 20px;
+}
+
+.formSection {
+  position: relative;
+  margin-bottom: 6px;
+  background-color: var(--form-color);
+  padding: 5px 15px;
+  text-align: left;
+  display: inline-block;
+  min-width: 550px;
+  max-width: 600px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.formField {
+  margin-bottom: 8px;
+}
+
+.formRow {
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 599px) {
+  .formContainer {
+    margin: 0;
+  }
+
+  .formSection {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 35px 25px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
+
+.button {
+  min-width: 153px;
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  color: var(--button-color);
+  background-color: var(--button-background-color);
+  border-color: #ccc;
+  text-transform: uppercase;
+  padding: 14px 0;
+  letter-spacing: 1.1px;
+  border: none;
+}
+
+.button:active {
+  opacity: 1;
+  background-color: var(--button-click);
+}
+
+.button:disabled {
+  opacity: 1;
+  background-color: grey;
+}
+
+.button:hover,
+.signInButton:hover {
+  opacity: 0.8;
+}
+
+.signInButton {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 0;
+  color: var(--deepSquidInk);
+  font-size: 14px;
+  box-sizing: content-box;
+}
+
+#googleSignInButton {
+  background-color: #4285F4;
+  font-family: Roboto;
+  border: 1px solid #4285F4;
+  color: var(--white);
+}
+
+#googleSignInButton > .signInButtonIcon {
+  background-color: var(--white);
+  border-radius: 4px 0 0 4px;
+  height: 28px;
+  width: 28px;
+  padding: 12px;
+}
+
+#facebookSignInButton {
+  background-color: #4267B2;
+  border-color: #4267B2;
+  font-family: "Helvetica Neue";
+  color: var(--white);
+}
+
+#facebookSignInButton > .signInButtonIcon {
+  height: 33px;
+  width: 18px;
+  padding: 10px 14px;
+}
+
+#amazonSignInButton {
+  background-color: var(--amazonOrange);
+  border: none;
+  color: var(--white);
+  font-family: "Amazon Ember";
+}
+
+#amazonSignInButton > .signInButtonIcon {
+  padding: 10px;
+  height: 32px;
+  width: 32px;
+}
+
+#oAuthSignInButton {
+  background-color: var(--white);
+  color: var(--deepSquidInk);
+}
+
+.signInButtonIcon {
+  position: absolute;
+  left: 0; 
+}
+
+.signInButtonContent {
+  text-align: center;
+  display: block;
+  padding: 18px 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  color: var(--input-color);
+  background-color: var(--input-background-color);
+  background-image: none;
+  border: 1px solid var(--lightGrey);
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+
+.input:disabled {
+  color: #545454;
+  background-color: var(--silver);
+}
+
+.inputLabel {
+  color: var(--input-color);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.radio {
+  margin-right: 18px;
+  vertical-align: bottom;
+}
+
+.a {
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.a:hover {
+  text-decoration: underline;
+}
