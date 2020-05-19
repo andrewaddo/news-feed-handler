@@ -6,6 +6,7 @@ backend:
         - cd gui 
     build:
       commands:
+        # the below cmd fixes issue with first run OK, subsequent runs failed due to cache
         - envCache --set stackInfo ""
         - amplifyPush --simple
 frontend:
@@ -18,7 +19,7 @@ frontend:
         - npm run build
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: /
+    baseDirectory: gui/
     files:
       - '**/*'
   cache:
