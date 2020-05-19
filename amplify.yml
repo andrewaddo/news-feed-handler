@@ -1,4 +1,11 @@
 version: 0.1
+backend:
+  phase:
+    build:
+      commands:
+       - cd gui
+      #  generate aws-export
+       - amplifyPush --simple
 frontend:
   phases:
     # IMPORTANT - Please verify your build commands
