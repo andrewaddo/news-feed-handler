@@ -4,7 +4,6 @@ backend:
     build:
       commands:
        - cd gui
-      #  generate aws-export
        - amplifyPush --simple
 frontend:
   phases:
