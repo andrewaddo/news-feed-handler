@@ -6,6 +6,7 @@ backend:
         - cd gui 
     build:
       commands:
+        - envCache --set stackInfo ""
         - amplifyPush --simple
 frontend:
   phases:
@@ -21,4 +22,5 @@ frontend:
     files:
       - '**/*'
   cache:
-    paths: []
+    paths:
+      - node_modules/**/*
