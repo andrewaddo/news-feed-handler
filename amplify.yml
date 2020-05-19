@@ -3,7 +3,8 @@ backend:
   phases:
     build:
       commands:
-       - cd gui
+       - #  generate aws-export
+       - cd gui      
        - amplifyPush --simple
 frontend:
   phases:
