@@ -1,6 +1,6 @@
 version: 0.1
 backend:
-  phase:
+  phases:
     build:
       commands:
        - cd gui
