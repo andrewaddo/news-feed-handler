@@ -36,6 +36,11 @@ Following are not exact match, but it explains how cross account works with Code
    * Service role for the pipeline, in this case specifically for the deploy stage (cloudformation).
    * Lambda role for the lambda function.
 
+## Project components
+
+1. Lambda: using CloudFormation
+1. DynamoDB: using CDK
+
 ## Notes
 
 ### Google news RSS format
@@ -67,3 +72,5 @@ pip install requests
    * For Lambda CloudFormation, CodeBuild generate another template (i.e. .yml) which refers to a zip package with actual code. This zip package may be stored in an S3 bucket different from the CodePipeline's artifacts bucket. Since accountB's CloudFormation (which uses outputtemplate.yml) it needs permission to access to the S3 bucket that has the zip package.
    * KMS key is used by CodeBuild to create encrypted artifacts. For Lambda CloudFormation build, artifacts only contains outputtemplate.yml
 1. There is no obvious way to get more logs from CodePipeline's deploy stage. Sometimes, very brief error message made it challenging to debug.
+1. It has been a while since I touched Nodejs - I can say the Dinosaur is now a Godzilla
+   * aws-apollo 3 and 2 works totally differently! Had hard time with v3, so I downgraded to v2

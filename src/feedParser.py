@@ -15,7 +15,7 @@ def getNewFeeds(profile, filterTime):
   searchItems = config.getSearchConfig()
   for searchItem in searchItems:
     searchString = searchItem['SearchString'] if 'SearchString' in searchItem else None
-    if searchItem['RSS']:
+    if 'RSS' in searchItem:
       rssUrl = searchItem['RSS']
     else:
       if searchString == 'SPECIAL_HARD_TO_SEARCH':
@@ -27,8 +27,8 @@ def getNewFeeds(profile, filterTime):
       rssUrl = 'https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=' + searchString.replace('"', "%22").replace(' ', '+')
     getNewFeedPerCustomer(profile, filterTime, searchItem, rssUrl)
 
-def getNewFeedPerCustomer(profile, filterTime, customer, rssUrl):
-  print("Filtering news for", customer["SearchItem"])
+def getNewFeedPerCustomer(profile, filterTime, searchItem, rssUrl):
+  print("Filtering news for", searchItem["SearchItem"])
   # get the feed from url
   feeds = feedparser.parse(rssUrl).entries
   ## check each feed, filter by last check time
@@ -38,19 +38,17 @@ def getNewFeedPerCustomer(profile, filterTime, customer, rssUrl):
     newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %Z').isoformat() > filterTime}
   except:
     print("Error with %Z")
-    pass
-  try: 
-    newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %z').isoformat() > filterTime}
-  except:
-    print("Error with %z")
-    pass
+    try: 
+      newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %z').isoformat() > filterTime}
+    except:
+      print("Error with %z! Unable to handle news timestamp format")
 
-  filteredPosts = filterFeed(newPosts, customer)
+  filteredPosts = filterFeed(newPosts, searchItem)
   # publish a header
   for post in filteredPosts:
     # print("Title publish date", post.published, post.source, " filter date", filterTime)
     title = post.title
-    result = recordNewFeeds(customer, post)
+    result = recordNewFeeds(profile, searchItem, post)
     # print(result)
     # testing
     # publishFeed(post)
@@ -59,16 +57,16 @@ def getNewFeedPerCustomer(profile, filterTime, customer, rssUrl):
       print("getting duplicate - skipping")
       continue
     elif result is True:
-      publishFeed(profile, customer, post)
+      publishFeed(profile, searchItem, post)
 
-def publishFeed(profile, customer, post):
+def publishFeed(profile, searchItem, post):
   description = clean_html(post.description)
   # description = post.description
   # payload = "{\"Content\":\"" + post.title + "\\n\\n"  \
   #   + post.published + "\\n\\n" \
   #   + description + "\\n\\n" \
   #   + post.link + "\"}"
-  payload = "{\"Content\":\"" + profile + " - " + customer["SearchItem"] + " - " + post.published + "\\n" \
+  payload = "{\"Content\":\"" + profile + " - " + searchItem["SearchItem"] + " - " + post.published + "\\n" \
     + post.title + "\\n" \
     + post.link + "\"}"
   # + description + "\\n" \
@@ -78,14 +76,14 @@ def publishFeed(profile, customer, post):
 
 # further filter feeds e.g.
 ## 1. List of known not-so-relevant sources
-def filterFeed(posts, customer):
+def filterFeed(posts, searchItem):
   blacklistSource = ["coin", "crypto", "crowdfundinsider", "newsletters", \
    "decrypt.co", "newsbtc", "u.today", "ethereumworldnews", \
    "coleofduty"]
   blacklistTitle = ["Market Insights", "Global Analysis", "Daily Briefing"]
   filteredPosts = set()
   for post in posts:
-    print("post", post)
+    # print("post", post)
     match = False
     for blackitem in blacklistSource:
       if hasattr(post, 'source') and blackitem in json.dumps(post.source):
@@ -95,8 +93,8 @@ def filterFeed(posts, customer):
       if blackitem in json.dumps(post.title):
         match = True
         break
-    if ('Strict' in customer and customer['Strict'] == "NAME_ON_TITLE"):
-      if not customer["SearchString"] in post.title:
+    if ('Strict' in searchItem and searchItem['Strict'] == "NAME_ON_TITLE"):
+      if not searchItem["SearchString"] in post.title:
         match = True
     if match == False:
       filteredPosts.add(post)
