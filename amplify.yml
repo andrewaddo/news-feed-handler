@@ -1,18 +1,20 @@
 version: 0.1
 backend:
   phases:
+    preBuild:
+      commands:
+        - cd gui 
     build:
       commands:
-       - cd gui      
-       - amplifyPush --simple
+        - amplifyPush --simple
 frontend:
   phases:
-    # IMPORTANT - Please verify your build commands
+    preBuild:
+      commands:
+        - npm ci
     build:
       commands:
-       - npm cache verify
-       - npm install
-       - npm run build
+        - npm run build
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: gui/
