@@ -3,10 +3,12 @@ frontend:
   phases:
     # IMPORTANT - Please verify your build commands
     build:
-      commands: []
+      commands:
+       - cd gui
+       - npm run build
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: gui/
+    baseDirectory: gui/dist/
     files:
       - '**/*'
   cache:
