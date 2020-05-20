@@ -6,7 +6,6 @@ from dbManager import recordNewFeeds, getCustomerConfig
 from feedPublisher import publishToWebHook
 from configHandler import ConfigHandler
 
-# feed_name = 'Kyber Network'
 # feed_url = 'https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=%22Kyber+Network%22'
 
 def getNewFeeds(profile, filterTime):

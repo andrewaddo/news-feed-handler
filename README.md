@@ -75,4 +75,5 @@ pip install requests
 1. It has been a while since I touched Nodejs - I can say the Dinosaur is now a Godzilla
    * aws-apollo 3 and 2 works totally differently! Had hard time with v3, so I downgraded to v2
    * amplify hosting (cicd from github)!
-   * amplify graphql needs "id: ID!" even though AppSync console does not need it
+   * amplify graphql needs "id: ID!" even though AppSync console does not need it (This is not true! Probably caused by sth else)
+   * key={profile.id} shuts off console's warnings

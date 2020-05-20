@@ -11,6 +11,7 @@ class NfhCdkStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         # The code that defines your stack goes here
+        ## SKIP! let amplify do this too!
         # create dynamo tables
         # nfhProfileConfig = aws_dynamodb.Table(
         #     self, "nfh_ProfileConfig", table_name="nfh_ProfileConfig",
