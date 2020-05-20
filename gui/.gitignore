@@ -1,5 +1,4 @@
 #amplify
-bk/
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/mock-data
