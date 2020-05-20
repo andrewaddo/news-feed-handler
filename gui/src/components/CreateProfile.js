@@ -4,7 +4,7 @@ import { createProfileConfig } from "../graphql/mutations";
 import gql from "graphql-tag";
 
 class CreateProfile extends React.Component {
-  handleSubmit(e, createProfileConfig){
+  handleSubmit(e, createProfileConfig) {
     e.preventDefault();
     createProfileConfig({
       variables: {
@@ -17,7 +17,7 @@ class CreateProfile extends React.Component {
       this.profile.value = "";
       this.webhookURL.value = "";
     });
-  };
+  }
 
   render() {
     return (
@@ -38,9 +38,8 @@ class CreateProfile extends React.Component {
                     ref={(node) => (this.profile = node)}
                     required
                   />
-                  <textarea
-                    rows="3"
-                    cols="40"
+                  <input
+                    type="text"
                     placeholder="WebhookURL"
                     ref={(node) => (this.webhookURL = node)}
                     required
