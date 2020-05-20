@@ -140,7 +140,7 @@
 
 .container {
   font-weight: 400;
-  max-width: 600px;
+  max-width: 900px;
   margin-top: 20px;
   margin: 5% auto 50px;
 }
@@ -218,7 +218,7 @@
   text-align: left;
   display: inline-block;
   min-width: 550px;
-  max-width: 600px;
+  max-width: 100%;
   border-radius: 6px;
   box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.15);
   box-sizing: border-box;
@@ -395,4 +395,33 @@
 
 .a:hover {
   text-decoration: underline;
+}
+
+.divTable {
+  display: table;         
+  width: auto;         
+  background-color: #eee;         
+  border: 1px solid #666666;         
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+
+.divTableRow {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+
+.divTableCol {
+  float: left; /* fix for  buggy browsers */
+  display: table-column;         
+  width: 200px;         
+  background-color: #ccc;  
+}
+
+.wordwrap { 
+  white-space: pre-wrap;      /* CSS3 */   
+  white-space: -moz-pre-wrap; /* Firefox */    
+  white-space: -pre-wrap;     /* Opera <7 */   
+  white-space: -o-pre-wrap;   /* Opera 7 */    
+  word-wrap: break-word;      /* IE */
 }

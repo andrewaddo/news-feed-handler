@@ -4,6 +4,7 @@ import { listProfileConfigs } from "../graphql/queries";
 import { onCreateProfileConfig } from "../graphql/subscriptions";
 import Profile from './Profile'
 import gql from "graphql-tag";
+import styles from "../app.css";
 
 class AllProfiles extends React.Component {
   subNewProfile(subscribeToMore) {
@@ -24,7 +25,7 @@ class AllProfiles extends React.Component {
 
   render() {
     return (
-      <div className="posts">
+      <div className={styles.divTable}>
         <Query query={gql(listProfileConfigs)}>
           {({ loading, data, error, subscribeToMore }) => {
             if (loading) return <p>loading...</p>;

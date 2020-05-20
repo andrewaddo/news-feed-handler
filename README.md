@@ -74,3 +74,5 @@ pip install requests
 1. There is no obvious way to get more logs from CodePipeline's deploy stage. Sometimes, very brief error message made it challenging to debug.
 1. It has been a while since I touched Nodejs - I can say the Dinosaur is now a Godzilla
    * aws-apollo 3 and 2 works totally differently! Had hard time with v3, so I downgraded to v2
+   * amplify hosting (cicd from github)!
+   * amplify graphql needs "id: ID!" even though AppSync console does not need it

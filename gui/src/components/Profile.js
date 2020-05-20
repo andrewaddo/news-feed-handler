@@ -1,4 +1,7 @@
 import React from "react";
+import DeleteProfile from './deleteProfile'
+import EditProfile from './editProfile'
+import styles from "../app.css";
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -10,14 +13,12 @@ class Profile extends React.Component {
 
     return items.map((profile) => {
       return (
-        <div>
-          {JSON.stringify(profile)}
-          {/* 
-          <p>{profile.body}</p>
-          <time dateTime={profile.createdAt}>
-            {new Date(profile.createdAt).toDateString()}
-          </time>
-          <br /> */}
+        <div className={styles.divTableRow}>
+          <div className={styles.divTableCol}>{profile.profile}</div>
+          <div className={styles.divTableCol + ' ' + styles.wordwrap}>{profile.webhookURL}</div> 
+          <div className={styles.divTableCol}><DeleteProfile {...profile} /></div>
+          <div className={styles.divTableCol}><EditProfile {...profile} /></div>
+          <br />
         </div>
       );
     });

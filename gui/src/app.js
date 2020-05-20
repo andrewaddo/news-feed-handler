@@ -44,19 +44,6 @@ class App extends React.Component {
     this.onTabClick = this.onTabClick.bind(this);
   }
 
-  updateInputValue(evt) {
-    var value = evt.target.value;
-    // for checkbox get .checked instead of value
-    if (evt.target.type == "checkbox") {
-      value = evt.target.checked;
-    } else if (evt.target.type == "file") {
-      value = evt.target.files[0];
-    }
-    this.setState({
-      [event.target.name]: value
-    });
-  }
-
   async postData(data, callback, headers = {}) {
     let apiName = data.apiName;
     let path = "/" + data.apiPath;
@@ -91,10 +78,6 @@ class App extends React.Component {
       .then(data => console.log(data))
       .then(() => window.location.reload())
       .catch(err => console.log(err));
-  }
-
-  onChange(key) {
-    console.log("onChange", key);
   }
 
   onTabClick(key) {

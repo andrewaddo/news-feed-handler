@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const getProfileConfig = /* GraphQL */ `
-  query GetProfileConfig($profile: ID!) {
-    getProfileConfig(profile: $profile) {
+  query GetProfileConfig($id: ID!) {
+    getProfileConfig(id: $id) {
       id
       profile
       webhookURL
@@ -26,19 +26,11 @@ export const getProfileConfig = /* GraphQL */ `
 `;
 export const listProfileConfigs = /* GraphQL */ `
   query ListProfileConfigs(
-    $profile: ID
     $filter: ModelProfileConfigFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listProfileConfigs(
-      profile: $profile
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listProfileConfigs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         profile
@@ -54,8 +46,8 @@ export const listProfileConfigs = /* GraphQL */ `
   }
 `;
 export const getSearchConfig = /* GraphQL */ `
-  query GetSearchConfig($profileID: ID!, $searchItem: String!) {
-    getSearchConfig(profileID: $profileID, searchItem: $searchItem) {
+  query GetSearchConfig($id: ID!) {
+    getSearchConfig(id: $id) {
       id
       profileID
       searchItem
@@ -88,21 +80,11 @@ export const getSearchConfig = /* GraphQL */ `
 `;
 export const listSearchConfigs = /* GraphQL */ `
   query ListSearchConfigs(
-    $profileID: ID
-    $searchItem: ModelStringKeyConditionInput
     $filter: ModelSearchConfigFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listSearchConfigs(
-      profileID: $profileID
-      searchItem: $searchItem
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listSearchConfigs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         profileID
