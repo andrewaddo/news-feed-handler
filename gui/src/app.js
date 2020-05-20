@@ -32,7 +32,7 @@ const client = new AWSAppSyncClient({
     jwtToken: async () => (await Auth.currentSession()).getAccessToken().getJwtToken(),
   },
   // Amplify uses Amazon IAM to authorize calls to Amazon S3. This provides the relevant IAM credentials.
-  complexObjectsCredentials: () => Auth.currentCredentials()
+  // complexObjectsCredentials: () => Auth.currentCredentials()
 });
 
 class App extends React.Component {

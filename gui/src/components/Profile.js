@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
     return items.map((profile) => {
       return (
-        <div className={styles.divTableRow}>
+        <div className={styles.divTableRow} key={profile.id}>
           <div className={styles.divTableCol}>{profile.profile}</div>
           <div className={styles.divTableCol + ' ' + styles.wordwrap}>{profile.webhookURL}</div> 
           <div className={styles.divTableCol}><DeleteProfile {...profile} /></div>
