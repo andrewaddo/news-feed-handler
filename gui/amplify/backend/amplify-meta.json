@@ -1,0 +1,97 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-nfhweb-dev-144219-authRole",
+			"UnauthRoleArn": "arn:aws:iam::323845505174:role/amplify-nfhweb-dev-144219-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::323845505174:role/amplify-nfhweb-dev-144219-authRole",
+			"Region": "ap-southeast-1",
+			"DeploymentBucketName": "amplify-nfhweb-dev-144219-deployment",
+			"UnauthRoleName": "amplify-nfhweb-dev-144219-unauthRole",
+			"StackName": "amplify-nfhweb-dev-144219",
+			"StackId": "arn:aws:cloudformation:ap-southeast-1:323845505174:stack/amplify-nfhweb-dev-144219/18ede640-9a65-11ea-a448-0ad08b3552b8",
+			"AmplifyAppId": "d2lnvgl66bf7oi"
+		}
+	},
+	"function": {},
+	"auth": {
+		"userPoolGroups": {
+			"service": "Cognito-UserPool-Groups",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "nfhwebauth",
+					"attributes": [
+						"UserPoolId",
+						"AppClientIDWeb",
+						"AppClientID",
+						"IdentityPoolId"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-nfhweb-dev-144219-deployment/amplify-cfn-templates/auth/template.json",
+				"logicalId": "authuserPoolGroups"
+			},
+			"lastPushTimeStamp": "2020-05-20T06:51:59.539Z",
+			"output": {
+				"AdminGroupRole": "arn:aws:iam::323845505174:role/ap-southeast-1_TnK6SJO58-AdminGroupRole"
+			},
+			"lastPushDirHash": "Z/k3xs+a+QPuBCQ4tgt/bG47IxY="
+		},
+		"nfhwebauth": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": true,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-nfhweb-dev-144219-deployment/amplify-cfn-templates/auth/nfhwebauth-cloudformation-template.yml",
+				"logicalId": "authnfhwebauth"
+			},
+			"lastPushTimeStamp": "2020-05-20T06:51:59.539Z",
+			"output": {
+				"CreatedSNSRole": "arn:aws:iam::323845505174:role/snsundefined144219-dev",
+				"AppClientSecret": "1qri4lttt8c2boop3t5h96ep68em0v5he53a8nhdp54eovnuo2g0",
+				"UserPoolId": "ap-southeast-1_TnK6SJO58",
+				"AppClientIDWeb": "717j7m37odfhb29h33nm09h6p9",
+				"AppClientID": "7imdejk2u71enq6dklcjv8nfm8",
+				"IdentityPoolId": "ap-southeast-1:f9033c7f-4cb0-49f3-acbe-3258ac222e4e",
+				"IdentityPoolName": "nfhIdPool__dev",
+				"UserPoolName": "nfhUserPool"
+			},
+			"lastPushDirHash": "UspdL/ax4KWpMwzocKYngxte71o="
+		}
+	},
+	"api": {
+		"nfhweb": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authnfhwebauth"
+						}
+					}
+				},
+				"GraphQLAPIIdOutput": "odlscehl6fe65jmvwwm45oojte",
+				"GraphQLAPIEndpointOutput": "https://j2tir5ynlnf4bml4dujakktrhm.appsync-api.ap-southeast-1.amazonaws.com/graphql"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-nfhweb-dev-144219-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apinfhweb"
+			},
+			"lastPushTimeStamp": "2020-05-20T06:51:59.539Z",
+			"lastPushDirHash": "/k/cIcGgZkFv/spM7BU9Bwd3sRA="
+		}
+	},
+	"hosting": {
+		"amplifyhosting": {
+			"service": "amplifyhosting",
+			"type": "cicd",
+			"lastPushTimeStamp": "2020-05-20T07:21:37.094Z"
+		}
+	}
+}

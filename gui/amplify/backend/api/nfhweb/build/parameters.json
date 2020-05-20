@@ -1,0 +1,14 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "nfhweb",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authnfhwebauth",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-nfhweb-dev-144219-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/cf13c523dbf9410cb0d88b9ecbb14f48bcfbdaa3"
+}

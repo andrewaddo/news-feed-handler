@@ -1,0 +1,283 @@
+type ProfileConfig {
+  id: ID!
+  profile: ID!
+  webhookURL: String!
+  searchConfigs(searchItem: ModelStringKeyConditionInput, filter: ModelSearchConfigFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSearchConfigConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type SearchConfig {
+  id: ID!
+  profileID: ID!
+  searchItem: String!
+  searchString: String!
+  rss: String!
+  profileConfig: ProfileConfig
+  News(title: ModelStringKeyConditionInput, filter: ModelNewsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelNewsConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type News {
+  id: ID!
+  searchConfigID: ID!
+  searchConfig: SearchConfig
+  title: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelProfileConfigConnection {
+  items: [ProfileConfig]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelProfileConfigFilterInput {
+  id: ModelIDInput
+  profile: ModelIDInput
+  webhookURL: ModelStringInput
+  and: [ModelProfileConfigFilterInput]
+  or: [ModelProfileConfigFilterInput]
+  not: ModelProfileConfigFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getProfileConfig(profile: ID!): ProfileConfig
+  listProfileConfigs(profile: ID, filter: ModelProfileConfigFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelProfileConfigConnection
+  getSearchConfig(profileID: ID!, searchItem: String!): SearchConfig
+  listSearchConfigs(profileID: ID, searchItem: ModelStringKeyConditionInput, filter: ModelSearchConfigFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelSearchConfigConnection
+  getNews(id: ID!): News
+  listNewss(filter: ModelNewsFilterInput, limit: Int, nextToken: String): ModelNewsConnection
+}
+
+input CreateProfileConfigInput {
+  id: ID
+  profile: ID!
+  webhookURL: String!
+}
+
+input UpdateProfileConfigInput {
+  id: ID!
+  profile: ID!
+  webhookURL: String
+}
+
+input DeleteProfileConfigInput {
+  profile: ID!
+}
+
+type Mutation {
+  createProfileConfig(input: CreateProfileConfigInput!, condition: ModelProfileConfigConditionInput): ProfileConfig
+  updateProfileConfig(input: UpdateProfileConfigInput!, condition: ModelProfileConfigConditionInput): ProfileConfig
+  deleteProfileConfig(input: DeleteProfileConfigInput!, condition: ModelProfileConfigConditionInput): ProfileConfig
+  createSearchConfig(input: CreateSearchConfigInput!, condition: ModelSearchConfigConditionInput): SearchConfig
+  updateSearchConfig(input: UpdateSearchConfigInput!, condition: ModelSearchConfigConditionInput): SearchConfig
+  deleteSearchConfig(input: DeleteSearchConfigInput!, condition: ModelSearchConfigConditionInput): SearchConfig
+  createNews(input: CreateNewsInput!, condition: ModelNewsConditionInput): News
+  updateNews(input: UpdateNewsInput!, condition: ModelNewsConditionInput): News
+  deleteNews(input: DeleteNewsInput!, condition: ModelNewsConditionInput): News
+}
+
+input ModelProfileConfigConditionInput {
+  webhookURL: ModelStringInput
+  and: [ModelProfileConfigConditionInput]
+  or: [ModelProfileConfigConditionInput]
+  not: ModelProfileConfigConditionInput
+}
+
+type Subscription {
+  onCreateProfileConfig: ProfileConfig @aws_subscribe(mutations: ["createProfileConfig"])
+  onUpdateProfileConfig: ProfileConfig @aws_subscribe(mutations: ["updateProfileConfig"])
+  onDeleteProfileConfig: ProfileConfig @aws_subscribe(mutations: ["deleteProfileConfig"])
+  onCreateSearchConfig: SearchConfig @aws_subscribe(mutations: ["createSearchConfig"])
+  onUpdateSearchConfig: SearchConfig @aws_subscribe(mutations: ["updateSearchConfig"])
+  onDeleteSearchConfig: SearchConfig @aws_subscribe(mutations: ["deleteSearchConfig"])
+  onCreateNews: News @aws_subscribe(mutations: ["createNews"])
+  onUpdateNews: News @aws_subscribe(mutations: ["updateNews"])
+  onDeleteNews: News @aws_subscribe(mutations: ["deleteNews"])
+}
+
+type ModelSearchConfigConnection {
+  items: [SearchConfig]
+  nextToken: String
+}
+
+input ModelSearchConfigFilterInput {
+  id: ModelIDInput
+  profileID: ModelIDInput
+  searchItem: ModelStringInput
+  searchString: ModelStringInput
+  rss: ModelStringInput
+  and: [ModelSearchConfigFilterInput]
+  or: [ModelSearchConfigFilterInput]
+  not: ModelSearchConfigFilterInput
+}
+
+input CreateSearchConfigInput {
+  id: ID
+  profileID: ID!
+  searchItem: String!
+  searchString: String!
+  rss: String!
+}
+
+input UpdateSearchConfigInput {
+  id: ID!
+  profileID: ID!
+  searchItem: String!
+  searchString: String
+  rss: String
+}
+
+input DeleteSearchConfigInput {
+  profileID: ID!
+  searchItem: String!
+}
+
+input ModelSearchConfigConditionInput {
+  searchString: ModelStringInput
+  rss: ModelStringInput
+  and: [ModelSearchConfigConditionInput]
+  or: [ModelSearchConfigConditionInput]
+  not: ModelSearchConfigConditionInput
+}
+
+type ModelNewsConnection {
+  items: [News]
+  nextToken: String
+}
+
+input ModelNewsFilterInput {
+  id: ModelIDInput
+  searchConfigID: ModelIDInput
+  title: ModelStringInput
+  and: [ModelNewsFilterInput]
+  or: [ModelNewsFilterInput]
+  not: ModelNewsFilterInput
+}
+
+input CreateNewsInput {
+  id: ID
+  searchConfigID: ID!
+  title: String!
+}
+
+input UpdateNewsInput {
+  id: ID!
+  searchConfigID: ID
+  title: String
+}
+
+input DeleteNewsInput {
+  id: ID
+}
+
+input ModelNewsConditionInput {
+  searchConfigID: ModelIDInput
+  title: ModelStringInput
+  and: [ModelNewsConditionInput]
+  or: [ModelNewsConditionInput]
+  not: ModelNewsConditionInput
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}

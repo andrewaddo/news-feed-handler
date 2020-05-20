@@ -1,0 +1,7 @@
+{
+  "version": "2017-02-28",
+  "operation": "GetItem",
+  "key": {
+      "profileID": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.source.searchConfigID, "___xamznone____"))
+  }
+}
