@@ -60,7 +60,7 @@ def updateLastCheckTimestamp(id, newCheckTimestamp):
 def recordNewFeeds(profile, searchItem, feed):
   # currentDate = datetime.now();
   # graphql needs that Z
-  currentDate = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
+  currentDate = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
   table = dynamodb.Table(newsTableName)
   # print(customer["Customer"],":", feed)
   try: 
