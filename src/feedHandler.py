@@ -9,7 +9,7 @@ def getNewsPerProfile(event, context):
 
   print("event", event)
   # get profileID
-  profileID = event.profileID
+  profileID = event['profileID']
   # get last check timestamp
   config = ConfigHandler(profileID)
   lastCheckTimestamp = config.getLastCheckTimestmap()
@@ -18,7 +18,7 @@ def getNewsPerProfile(event, context):
   print(config.getProfileConfig())
   # save new feeds
   ## publish start statement
-  # publishToWebHook("{\"Content\":\"/md **Daily " + config.getProfileConfig()['profile'] + " news**\"}", webhookURL)
+  publishToWebHook("{\"Content\":\"/md **Daily " + config.getProfileConfig()['profile'] + " news**\"}", webhookURL)
   newFeeds = getNewFeeds(profileID, lastCheckTimestamp)
 
   # mark new timestamp
@@ -26,9 +26,9 @@ def getNewsPerProfile(event, context):
   now = datetime.now()
   newLastCheckTimestmap = now.isoformat()
   # update last check timestamp
-  updateLastCheckTimestamp(newLastCheckTimestmap)
+  updateLastCheckTimestamp(profileID, newLastCheckTimestmap)
   
   # publish an end statement
-  # publishToWebHook("{\"Content\":\"/md *Stay classy " + config.getProfileConfig()['profile'] + "!*\"}", webhookURL)
+  publishToWebHook("{\"Content\":\"/md *Stay classy " + config.getProfileConfig()['profile'] + "!*\"}", webhookURL)
 
   return True
