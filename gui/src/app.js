@@ -11,6 +11,7 @@ import AWSAppSyncClient from "aws-appsync";
 import { Rehydrated } from 'aws-appsync-react';
 import { ApolloProvider } from 'react-apollo';
 import AllProfiles from "./components/AllProfiles";
+import AllNews from "./components/AllNews";
 import CreateProfile from "./components/CreateProfile";
 
 Auth.configure(awsconfig);
@@ -113,7 +114,7 @@ class App extends React.Component {
               </TabPane>
               <TabPane tab="View News" key="2">
                 <div className="App-content">
-                  <AllProfiles />
+                  <AllNews />
                 </div>  
               </TabPane>
             </Tabs>

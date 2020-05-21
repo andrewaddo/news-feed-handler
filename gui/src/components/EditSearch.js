@@ -24,8 +24,8 @@ class EditSearch extends React.Component {
 
   handleModal() {
     this.setState({ show: !this.state.show });
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    // document.body.scrollTop = 0;
+    // document.documentElement.scrollTop = 0;
   }
 
   handleSubmit(e, updateSearch) {

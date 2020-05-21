@@ -10,6 +10,7 @@ import {
   onDeleteSearchConfig,
 } from "../graphql/subscriptions";
 import Profile from "./Profile";
+import CreateSearch from "./CreateSearch";
 import SearchConfig from "./SearchConfig";
 import gql from "graphql-tag";
 
@@ -176,7 +177,7 @@ class AllProfiles extends React.Component {
           }}
         </Query>
         <div>Selected profileID is {this.state.selectedProfileID}</div>
-        <CreateSearch />
+        <CreateSearch selectedProfileID = {this.state.selectedProfileID} />
         <Query
           query={gql(listSearchConfigs)}
           variables={{

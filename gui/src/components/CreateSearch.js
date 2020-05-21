@@ -14,13 +14,14 @@ class CreateSearch extends React.Component {
     createSearchConfig({
       variables: {
         input: {
-          profileID: this.props.profileID,
+          profileID: this.props.selectedProfileID,
           searchItem: this.searchItem.value,
           searchString: this.searchString.value,
           rss: this.rss.value,
         },
       },
     }).then((res) => {
+      this.profileID.value = "";
       this.searchItem.value = "";
       this.searchString.value = "";
       this.rss.value = "";
