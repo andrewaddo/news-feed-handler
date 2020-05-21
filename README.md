@@ -4,7 +4,9 @@ Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, 
 
 ## Architecture
 
-![architecture](./img/architecture.drawio.svg "high-level architecture")
+<p><img src='./img/architecture.drawio.svg'></p>
+
+![architecture](./img/architecture.png "high-level architecture")
 
 ## Data model
 
