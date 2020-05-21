@@ -73,7 +73,9 @@ pip install requests
    * KMS key is used by CodeBuild to create encrypted artifacts. For Lambda CloudFormation build, artifacts only contains outputtemplate.yml
 1. There is no obvious way to get more logs from CodePipeline's deploy stage. Sometimes, very brief error message made it challenging to debug.
 1. It has been a while since I touched Nodejs - I can say the Dinosaur is now a Godzilla
+   * DO NOT delete generated S3 bucket amplify-{appName}-{env}-171328-deployment 
    * aws-apollo 3 and 2 works totally differently! Had hard time with v3, so I downgraded to v2
    * amplify hosting (cicd from github)!
    * amplify graphql needs "id: ID!" even though AppSync console does not need it (This is not true! Probably caused by sth else)
    * key={profile.id} shuts off console's warnings
+1. Sometimes, S3 bucket would need 24h to be propagated across regions. Amplify does not specify region for s3, so there is rare chance APIs failed due to this issue.
