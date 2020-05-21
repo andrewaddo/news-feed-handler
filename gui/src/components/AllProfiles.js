@@ -12,9 +12,20 @@ import {
 import Profile from "./Profile";
 import SearchConfig from "./SearchConfig";
 import gql from "graphql-tag";
-import styles from "../app.css";
 
 class AllProfiles extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedProfileID: "",
+    };
+    this.onProfileSelect = this.onProfileSelect.bind(this);
+  }
+
+  onProfileSelect(selectedProfileID) {
+    this.setState({ selectedProfileID: selectedProfileID });
+  }
+
   subNewProfile(subscribeToMore) {
     return subscribeToMore({
       document: gql(onCreateProfileConfig),
@@ -136,43 +147,59 @@ class AllProfiles extends React.Component {
   render() {
     return (
       <div>
-        <div className={styles.divTable}>
-          <Query query={gql(listProfileConfigs)}>
-            {({
-              loading,
-              data,
-              error,
-              subscribeToMore,
-              refetch,
-              networkStatus,
-            }) => {
-              if (networkStatus === 4) return "Refetching!";
-              if (loading) return <p>loading...</p>;
-              if (error) return <p>{error.message}</p>;
+        <Query query={gql(listProfileConfigs)}>
+          {({
+            loading,
+            data,
+            error,
+            subscribeToMore,
+            refetch,
+            networkStatus,
+          }) => {
+            if (networkStatus === 4) return "Refetching!";
+            if (loading) return <p>loading...</p>;
+            if (error) return <p>{error.message}</p>;
+            return (
+              <div>
+                <button onClick={() => refetch()}>Refetch!</button>
+                <Profile
+                  onProfileSelect={this.onProfileSelect}
+                  data={data}
+                  subscribeToMore={() => {
+                    this.subNewProfile(subscribeToMore),
+                      this.subUpdatedProfile(subscribeToMore),
+                      this.subDeletedProfile(subscribeToMore);
+                  }}
+                />
+              </div>
+            );
+          }}
+        </Query>
+        <div>Selected profileID is {this.state.selectedProfileID}</div>
+        <Query
+          query={gql(listSearchConfigs)}
+          variables={{
+            filter: {
+              profileID: {"eq": this.state.selectedProfileID},
+            },
+          }}
+        >
+          {({
+            loading,
+            data,
+            error,
+            subscribeToMore,
+            refetch,
+            networkStatus,
+          }) => {
+            if (networkStatus === 4) return "Refetching!";
+            if (loading) return <p>loading...</p>;
+            if (error) return <p>{error.message}</p>;
 
-              return (
-                <div>
-                  <Profile
-                    data={data}
-                    subscribeToMore={() => {
-                      this.subNewProfile(subscribeToMore),
-                        this.subUpdatedProfile(subscribeToMore),
-                        this.subDeletedProfile(subscribeToMore);
-                    }}
-                  />
-                  <button onClick={() => refetch()}>Refetch!</button>
-                </div>
-              );
-            }}
-          </Query>
-        </div>
-        <div className={styles.divTable}>
-          <Query query={gql(listSearchConfigs)}>
-            {({ loading, data, error, subscribeToMore }) => {
-              if (loading) return <p>loading...</p>;
-              if (error) return <p>{error.message}</p>;
+            return (
+              <div>
+                <button onClick={() => refetch()}>Refetch!</button>
 
-              return (
                 <SearchConfig
                   data={data}
                   subscribeToMore={() => {
@@ -181,10 +208,10 @@ class AllProfiles extends React.Component {
                       this.subDeletedSearch(subscribeToMore);
                   }}
                 />
-              );
-            }}
-          </Query>
-        </div>
+              </div>
+            );
+          }}
+        </Query>
       </div>
     );
   }

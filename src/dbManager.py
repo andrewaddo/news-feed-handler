@@ -58,7 +58,9 @@ def updateLastCheckTimestamp(id, newCheckTimestamp):
   return newCheckTimestamp
 
 def recordNewFeeds(profile, searchItem, feed):
-  currentDate = datetime.now();
+  # currentDate = datetime.now();
+  # graphql needs that Z
+  currentDate = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
   table = dynamodb.Table(newsTableName)
   # print(customer["Customer"],":", feed)
   try: 
@@ -71,7 +73,9 @@ def recordNewFeeds(profile, searchItem, feed):
         'timestamp': currentDate.isoformat(),
         'title': feed.title,
         'source': json.dumps(feed.source) if hasattr(feed, 'source') else None,
-        'feed': json.dumps(feed)
+        'feed': json.dumps(feed),
+        'createdAt': currentDate.isoformat(),
+        'updatedAt': currentDate.isoformat()
       },
       ConditionExpression='attribute_not_exists(searchConfigID) or attribute_not_exists(title)'
     )
