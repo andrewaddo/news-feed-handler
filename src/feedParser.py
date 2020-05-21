@@ -2,20 +2,18 @@ import feedparser
 from datetime import datetime
 import json
 import re
-from dbManager import recordNewFeeds, getCustomerConfig
+from dbManager import recordNewFeeds
 from feedPublisher import publishToWebHook
 from configHandler import ConfigHandler
 
-# feed_url = 'https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=%22Kyber+Network%22'
-
-def getNewFeeds(profile, filterTime):
+def getNewFeeds(profileID, filterTime):
   # read search list
-  config = ConfigHandler(profile)
+  config = ConfigHandler(profileID)
   searchItems = config.getSearchConfig()
   for searchItem in searchItems:
-    searchString = searchItem['SearchString'] if 'SearchString' in searchItem else None
-    if 'RSS' in searchItem:
-      rssUrl = searchItem['RSS']
+    searchString = searchItem['searchString'] if 'searchString' in searchItem else None
+    if 'rss' in searchItem:
+      rssUrl = searchItem['rss']
     else:
       if searchString == 'SPECIAL_HARD_TO_SEARCH':
         continue
@@ -24,30 +22,35 @@ def getNewFeeds(profile, filterTime):
       if not searchString.endswith('"'):
         searchString = searchString + '"'
       rssUrl = 'https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=' + searchString.replace('"', "%22").replace(' ', '+')
-    getNewFeedPerCustomer(profile, filterTime, searchItem, rssUrl)
+    getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl)
 
-def getNewFeedPerCustomer(profile, filterTime, searchItem, rssUrl):
-  print("Filtering news for", searchItem["SearchItem"])
+def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl):
+  print("Filtering news for", searchItem["searchItem"], "with rss", rssUrl)
   # get the feed from url
   feeds = feedparser.parse(rssUrl).entries
+  # print("Got feeds", feeds[0].published, datetime.strptime(feeds[0].published, '%a, %d %b %Y %H:%M:%S %z').isoformat(), "filter time", filterTime)
+  for feed in feeds:
+    print("feed time", feed.published, datetime.strptime(feed.published, '%a, %d %b %Y %H:%M:%S %z').isoformat())
   ## check each feed, filter by last check time
+  ### security bulletins "Tue, 31 Mar 2020 18:17:41 +0000",
   ### AWS what's new has timestamp 'Fri, 15 May 2020 17:03:58 +0000' does not match format '%a, %d %b %Y %H:%M:%S %z'
   ### Google News has timestamp 'Fri, 15 May 2020 17:03:58 UTC' does not match format '%a, %d %b %Y %H:%M:%S %Z'
+  newPosts = []
   try: 
     newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %Z').isoformat() > filterTime}
   except:
     print("Error with %Z")
     try: 
       newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %z').isoformat() > filterTime}
-    except:
-      print("Error with %z! Unable to handle news timestamp format")
-
+    except Exception as e: # work on python 3.x
+      print('Failed to upload to ftp: '+ str(e))
+  # print("Got filtered items", newPosts)
   filteredPosts = filterFeed(newPosts, searchItem)
   # publish a header
   for post in filteredPosts:
     # print("Title publish date", post.published, post.source, " filter date", filterTime)
     title = post.title
-    result = recordNewFeeds(profile, searchItem, post)
+    result = recordNewFeeds(profileID, searchItem, post)
     # print(result)
     # testing
     # publishFeed(post)
@@ -56,22 +59,24 @@ def getNewFeedPerCustomer(profile, filterTime, searchItem, rssUrl):
       print("getting duplicate - skipping")
       continue
     elif result is True:
-      publishFeed(profile, searchItem, post)
+      publishFeed(profileID, searchItem, post)
 
-def publishFeed(profile, searchItem, post):
+def publishFeed(profileID, searchItem, post):
   description = clean_html(post.description)
+  config = ConfigHandler(profileID)
+  webhookURL = config.getWebhookURL()
   # description = post.description
   # payload = "{\"Content\":\"" + post.title + "\\n\\n"  \
   #   + post.published + "\\n\\n" \
   #   + description + "\\n\\n" \
   #   + post.link + "\"}"
-  payload = "{\"Content\":\"" + profile + " - " + searchItem["SearchItem"] + " - " + post.published + "\\n" \
+  payload = "{\"Content\":\"" + searchItem["searchItem"] + " - " + post.published + "\\n" \
     + post.title + "\\n" \
     + post.link + "\"}"
   # + description + "\\n" \
   printable = "\\n".join(payload.split("\n"))
   # print("post data", postData)
-  publishToWebHook(printable)
+  publishToWebHook(printable, webhookURL)
 
 # further filter feeds e.g.
 ## 1. List of known not-so-relevant sources
@@ -92,8 +97,8 @@ def filterFeed(posts, searchItem):
       if blackitem in json.dumps(post.title):
         match = True
         break
-    if ('Strict' in searchItem and searchItem['Strict'] == "NAME_ON_TITLE"):
-      if not searchItem["SearchString"] in post.title:
+    if ('Strict' in searchItem and searchItem['strict'] == "NAME_ON_TITLE"):
+      if not searchItem["searchString"] in post.title:
         match = True
     if match == False:
       filteredPosts.add(post)

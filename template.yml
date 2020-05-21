@@ -14,8 +14,17 @@ Resources:
   GetNewsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: getCustomerNews
-      Handler: feedHandler.getNews
+      FunctionName: getNews
+      Handler: feedStarter.getNews
+      Runtime: python3.6
+      CodeUri: ./
+      Role: !Sub arn:aws:iam::${Account}:role/lambda-nfh
+      Timeout: 900
+  GetNewsPerProfileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getNewsPerProfile
+      Handler: feedHandler.getNewsPerProfile
       Runtime: python3.6
       CodeUri: ./
       Role: !Sub arn:aws:iam::${Account}:role/lambda-nfh

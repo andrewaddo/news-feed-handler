@@ -4,48 +4,52 @@ from datetime import datetime
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
 from helperFunctions import genNewsIDHash
+from propertiesHandler import PropertiesHandler
+import uuid
 
 dynamodb = boto3.resource('dynamodb')
-
+properties = PropertiesHandler()
+profileConfigTableName = properties.getProfileConfigTable()
+searchConfigTableName = properties.getSearchConfigTable()
+newsTableName = properties.getNewsTable()
 # TODO refactor this with wrappers such as configHandler
 
-# get customer list
-def getCustomerConfig(profile):
-  table = dynamodb.Table('nfh_SearchConfig')
-  result = table.query(
-    KeyConditionExpression = Key("Profile").eq(profile)
+# get search config list
+def getDBSearchConfig(profileID):
+  table = dynamodb.Table(searchConfigTableName)
+  result = table.scan(
+    Select= 'ALL_ATTRIBUTES',
+    FilterExpression = Attr('profileID').eq(profileID)
   )
   # print(result)
   return result['Items'] if 'Items' in result else None
 
 # get profile config
-def getProfileConfig(profile):
-  table = dynamodb.Table('nfh_ProfileConfig')
+def getDBProfileConfigs():
+  table = dynamodb.Table(profileConfigTableName)
+  result = table.scan()
+  # print("getProfileConfig", result)
+  return result['Items'] if 'Items' in result else None
+
+# get profile config
+def getDBProfileConfig(id):
+  table = dynamodb.Table(profileConfigTableName)
   result = table.query(
-    KeyConditionExpression = Key("Profile").eq(profile)
+    KeyConditionExpression = Key("id").eq(id)
   )
   # print("getProfileConfig", result)
   return result['Items'] if 'Items' in result else None
 
-# get search config
-def getSearchConfig(profile):
-  table = dynamodb.Table('nfh_SearchConfig')
-  result = table.query(
-    KeyConditionExpression = Key("Profile").eq(profile)
-  )
-  # print("getSearchConfig", result)
-  return result['Items'] if 'Items' in result else None
-
 # update last check timestamp
-def updateLastCheckTimestamp(newCheckTimestamp):
-  table = dynamodb.Table('nfh_ProfileConfig')
+def updateLastCheckTimestamp(id, newCheckTimestamp):
+  table = dynamodb.Table(profileConfigTableName)
   table.update_item(
     Key = {
-      'Profile': 'Profile'
+      'id': id
     },
     UpdateExpression = "set #attr = :val",
     ExpressionAttributeNames = {
-      '#attr': 'LastCheckTimestamp'
+      '#attr': 'lastCheckTimestamp'
     },
     ExpressionAttributeValues = {
         ':val': newCheckTimestamp
@@ -55,22 +59,21 @@ def updateLastCheckTimestamp(newCheckTimestamp):
 
 def recordNewFeeds(profile, searchItem, feed):
   currentDate = datetime.now();
-  table = dynamodb.Table('nfh_News')
+  table = dynamodb.Table(newsTableName)
   # print(customer["Customer"],":", feed)
   try: 
     table.put_item(
       Item={
-        'Profile_SearchItem': genNewsIDHash(profile, searchItem['SearchItem']),
-        'Customer': searchItem['SearchItem'],
-        'Profile': profile,
-        'SearchItem':searchItem['SearchItem'],         
-        'Date': feed.published,
-        'Timestamp': currentDate.isoformat(),
-        'Title': feed.title,
-        'Source': json.dumps(feed.source) if hasattr(feed, 'source') else None,
-        'Feed': json.dumps(feed)
+        'id': str(uuid.uuid4()),
+        'searchConfigID': searchItem['id'],
+        'searchItem':searchItem['searchItem'],         
+        'date': feed.published,
+        'timestamp': currentDate.isoformat(),
+        'title': feed.title,
+        'source': json.dumps(feed.source) if hasattr(feed, 'source') else None,
+        'feed': json.dumps(feed)
       },
-      ConditionExpression='attribute_not_exists(Profile_SearchItem) or attribute_not_exists(Title)'
+      ConditionExpression='attribute_not_exists(searchConfigID) or attribute_not_exists(title)'
     )
     return True
   except ClientError as e:

@@ -2,12 +2,10 @@ import requests
 from configHandler import ConfigHandler
 
 POST_HEADERS = {"Content-Type": "application/json"}
-profile = 'FinTech'
+profileID = '6fe2666a-6566-4a23-bfc5-1ce2da0dbfbd'
 
-def publishToWebHook(postData):
-  config = ConfigHandler(profile)
-  WH_ADDRESS = config.getWebhookURL()
+def publishToWebHook(postData, webhookURL):
   # print("webhook", WH_ADDRESS)
-  response = requests.post(WH_ADDRESS, data = postData.encode('utf-8'), headers = POST_HEADERS)
+  response = requests.post(webhookURL, data = postData.encode('utf-8'), headers = POST_HEADERS)
   if response.status_code == 200:
     print("Published to webhook")

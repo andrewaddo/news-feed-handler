@@ -1,21 +1,41 @@
 import configparser
-from dbManager import getProfileConfig, getSearchConfig
+from datetime import datetime, timedelta
+from dbManager import getDBProfileConfigs, getDBProfileConfig, getDBSearchConfig
 
 class ConfigHandler:
 
-  def __init__(self, profile):
-    # self.config = configparser.ConfigParser()
-    # self.config.read('conf/properties.conf')
+  def __init__(self):
     # DONE: load additional config from DB
-    self.profileConfig = getProfileConfig(profile)[0]
-    self.searchConfig = getSearchConfig(profile)
+    self.profileConfigs = getDBProfileConfigs()
     print("")
+
+  def __init__(self, profileID):
+    # DONE: load additional config from DB
+    self.profileConfig = getDBProfileConfig(profileID)[0]
+    self.searchConfig = getDBSearchConfig(profileID)
+    print("")
+
+  def getProfileConfigs(self):
+    return self.profileConfigs
 
   def getSearchConfig(self):
     return self.searchConfig
 
   def getLastCheckTimestmap(self):
-    return self.profileConfig['LastCheckTimestamp']
+    yesterday = datetime.now() - timedelta(days = 1)
+    return self.profileConfig['lastCheckTimestamp'] if 'lastCheckTimestamp' in self.profileConfig else yesterday.isoformat()
   
+  def getProfileConfig(self):
+    return self.profileConfig
+
   def getWebhookURL(self):
-    return self.profileConfig['WebhookURL']
+    return self.profileConfig['webhookURL']
+
+  def getProfileConfigTable(self):
+    return self.properties['main']['PROFILECONFIG_TABLE']
+  
+  def getSearchConfigTable(self):
+    return self.properties['main']['SEARCHCONFIG_TABLE']
+  
+  def getNewsTable(self):
+    return self.properties['main']['NEWS_TABLE']
