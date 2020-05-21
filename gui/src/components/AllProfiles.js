@@ -176,6 +176,7 @@ class AllProfiles extends React.Component {
           }}
         </Query>
         <div>Selected profileID is {this.state.selectedProfileID}</div>
+        <CreateSearch />
         <Query
           query={gql(listSearchConfigs)}
           variables={{

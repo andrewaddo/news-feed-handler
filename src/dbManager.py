@@ -70,12 +70,12 @@ def recordNewFeeds(profile, searchItem, feed):
         'searchConfigID': searchItem['id'],
         'searchItem':searchItem['searchItem'],         
         'date': feed.published,
-        'timestamp': currentDate.isoformat(),
+        'timestamp': currentDate,
         'title': feed.title,
         'source': json.dumps(feed.source) if hasattr(feed, 'source') else None,
         'feed': json.dumps(feed),
-        'createdAt': currentDate.isoformat(),
-        'updatedAt': currentDate.isoformat()
+        'createdAt': currentDate,
+        'updatedAt': currentDate
       },
       ConditionExpression='attribute_not_exists(searchConfigID) or attribute_not_exists(title)'
     )
