@@ -7,7 +7,7 @@ phases:
     commands:
       - pip install feedparser -t .
       - pip install requests -t .
-      - rm -rf img scripts cfn data
+      - rm -rf img scripts cfn data gui NFH-cdk bk
       - mv src/* .
       - export BUCKET=news-feed-handler
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml

@@ -4,15 +4,16 @@ from dbManager import getDBProfileConfigs, getDBProfileConfig, getDBSearchConfig
 
 class ConfigHandler:
 
-  def __init__(self):
+  def __init__(self, profileID="ALL"):
     # DONE: load additional config from DB
-    self.profileConfigs = getDBProfileConfigs()
-    print("")
-
-  def __init__(self, profileID):
-    # DONE: load additional config from DB
-    self.profileConfig = getDBProfileConfig(profileID)[0]
-    self.searchConfig = getDBSearchConfig(profileID)
+    self.profileConfigs = []
+    self.profileConfig = []
+    self.searchConfig = []
+    if profileID == "ALL":
+      self.profileConfigs = getDBProfileConfigs()
+    else:
+      self.profileConfig = getDBProfileConfig(profileID)[0]
+      self.searchConfig = getDBSearchConfig(profileID)
     print("")
 
   def getProfileConfigs(self):

@@ -10,7 +10,7 @@ def getNews(event, context):
     # get all profiles
     config = ConfigHandler()
     profiles = config.getProfileConfigs()
-
+    print("profiles", profiles)
     for profile in profiles:
         client.invoke(FunctionName='getNewsPerProfile',
                       InvocationType='Event',
