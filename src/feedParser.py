@@ -29,8 +29,6 @@ def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl):
   # get the feed from url
   feeds = feedparser.parse(rssUrl).entries
   # print("Got feeds", feeds[0].published, datetime.strptime(feeds[0].published, '%a, %d %b %Y %H:%M:%S %z').isoformat(), "filter time", filterTime)
-  for feed in feeds:
-    print("feed time", feed.published, datetime.strptime(feed.published, '%a, %d %b %Y %H:%M:%S %z').isoformat())
   ## check each feed, filter by last check time
   ### security bulletins "Tue, 31 Mar 2020 18:17:41 +0000",
   ### AWS what's new has timestamp 'Fri, 15 May 2020 17:03:58 +0000' does not match format '%a, %d %b %Y %H:%M:%S %z'
