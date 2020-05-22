@@ -30,7 +30,8 @@ def getNewsPerProfile(event, context):
     newFeeds = getNewFeeds(profileID, testFrom.isoformat(), isTest=True)
     return True
   
-  newFeeds = getNewFeeds(profileID, lastCheckTimestamp)
+  # fool proof TODO refactor me
+  newFeeds = getNewFeeds(profileID, lastCheckTimestamp, isTest=False)
   
   # update last check timestamp
   updateLastCheckTimestamp(profileID, newLastCheckTimestmap)
