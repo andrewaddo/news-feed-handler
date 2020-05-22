@@ -28,14 +28,6 @@ class News extends React.Component {
         {items.map((news) => {
           return (
             <div className={styles.divTableRow} key={news.id}>
-              <div className={styles.divTableCol}>
-                <input
-                  type="radio"
-                  value={news.id}
-                  checked={this.state.selectedNewsID === news.id}
-                  onChange={this.onNewsSelect}
-                />
-              </div>
               <div className={styles.divTableCol}>{news.searchConfig.searchItem}</div>
               <div className={styles.divTableCol}>{news.title}</div>
               <br />
