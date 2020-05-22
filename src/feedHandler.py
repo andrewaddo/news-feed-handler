@@ -1,4 +1,3 @@
-import boto3
 from datetime import datetime, timedelta
 from dbManager import updateLastCheckTimestamp
 from feedParser import getNewFeeds
@@ -14,8 +13,8 @@ def getNewsPerProfile(event, context):
   config = ConfigHandler(profileID)
   lastCheckTimestamp = config.getLastCheckTimestmap()
   webhookURL = config.getWebhookURL()
-  print(lastCheckTimestamp)
-  print(config.getProfileConfig())
+  # print(lastCheckTimestamp)
+  # print(config.getProfileConfig())
   # mark new timestamp
   # now = datetime.now() - timedelta(days = 30)
   now = datetime.now()
@@ -26,12 +25,15 @@ def getNewsPerProfile(event, context):
   
   # is this a test
   if 'isTest' in event and event['isTest'] is True:
-    testFrom = datetime.now() - timedelta(days = event['testBackDay'] if 'testBackDay' in event else 3)
-    newFeeds = getNewFeeds(profileID, testFrom.isoformat(), isTest=True)
+    print("Testing flow")
+    testFrom = datetime.now() - timedelta(days = event['testBackDay'] if 'testBackDay' in event else 5)
+    newFeeds = getNewFeeds(profileID, testFrom.isoformat(), isTest = True)
+    # publish an end statement
+    publishToWebHook("{\"Content\":\"/md *Stay classy " + config.getProfileConfig()['profile'] + "!*\"}", webhookURL)
     return True
   
   # fool proof TODO refactor me
-  newFeeds = getNewFeeds(profileID, lastCheckTimestamp, isTest=False)
+  newFeeds = getNewFeeds(profileID, lastCheckTimestamp, isTest = False)
   
   # update last check timestamp
   updateLastCheckTimestamp(profileID, newLastCheckTimestmap)

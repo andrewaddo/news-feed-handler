@@ -6,7 +6,7 @@ from dbManager import recordNewFeeds
 from feedPublisher import publishToWebHook
 from configHandler import ConfigHandler
 
-def getNewFeeds(profileID, filterTime, isTest=False):
+def getNewFeeds(profileID, filterTime, isTest = False):
   # read search list
   config = ConfigHandler(profileID)
   searchItems = config.getSearchConfig()
@@ -25,15 +25,18 @@ def getNewFeeds(profileID, filterTime, isTest=False):
     getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl, isTest)
 
 def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl, isTest):
-  print("Filtering news for", searchItem["searchItem"], "with rss", rssUrl)
+  print("Filtering news for", searchItem["searchItem"], "with rss", rssUrl, filterTime, isTest)
   # get the feed from url
-  feeds = feedparser.parse(rssUrl).entries
+  raw = feedparser.parse(rssUrl)
+  # print("raw", raw)
+  feeds = raw.entries
   # print("Got feeds", feeds[0].published, datetime.strptime(feeds[0].published, '%a, %d %b %Y %H:%M:%S %z').isoformat(), "filter time", filterTime)
   ## check each feed, filter by last check time
   ### security bulletins "Tue, 31 Mar 2020 18:17:41 +0000",
   ### AWS what's new has timestamp 'Fri, 15 May 2020 17:03:58 +0000' does not match format '%a, %d %b %Y %H:%M:%S %z'
   ### Google News has timestamp 'Fri, 15 May 2020 17:03:58 UTC' does not match format '%a, %d %b %Y %H:%M:%S %Z'
   newPosts = []
+  print("feeds count", len(feeds))
   try: 
     newPosts = {entry for entry in feeds if datetime.strptime(entry.published, '%a, %d %b %Y %H:%M:%S %Z').isoformat() > filterTime}
   except:
@@ -46,18 +49,19 @@ def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl, isTest):
   filteredPosts = filterFeed(newPosts, searchItem)
   # publish a header
   for post in filteredPosts:
-    # print("Title publish date", post.published, post.source, " filter date", filterTime)
+    print("Title publish date", post.title, " filter date", filterTime)
     title = post.title
-    result = recordNewFeeds(profileID, searchItem, post)
-    # print(result)
-    # testing
-    # publishFeed(post)
-    # quit()
+    if isTest is False:
+      result = recordNewFeeds(profileID, searchItem, post)
+    else:
+      print("Skipping recording on test")
+      result = True
+      
     if result is None:
       print("getting duplicate - skipping")
       continue
-    elif result is True and isTest is False:
-      publishFeed(profileID, searchItem, post, isTest)
+    elif result is True:
+      publishFeed(profileID, searchItem, post)
 
 def publishFeed(profileID, searchItem, post):
   description = clean_html(post.description)
