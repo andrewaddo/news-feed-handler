@@ -9,36 +9,54 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       selectedProfileID: "",
+      testBackDay: 3
     };
     this.onProfileSelect = this.onProfileSelect.bind(this);
     this.testProfileResult = this.testProfileResult.bind(this);
-    this.testProfile = this.testProfile(this);
+    this.testProfile = this.testProfile.bind(this);
+    this.handleTestBackDate = this.handleTestBackDate.bind(this);
   }
 
   async postData(data, callback, headers = {}) {
+    console.log("posting data", data);
     let apiName = data.apiName;
     let path = "/" + data.apiPath;
     let myInit = {
+      headers: {
+        // just these 2, no extra non-sense which will messes CORS up
+        // OPTIONS returns whatever provided here
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: data.body,
     };
-    return await API.post(apiName, path, myInit)
-      .then(callback)
-      .catch((error) => {
-        console.log(error.response);
-      });
+    console.log("posting", apiName, path, myInit);
+    return await API.post(apiName, path, myInit).then(callback);
+    // .catch((error) => {
+    //   console.log(error.response);
+    // });
   }
 
   testProfile(profileID) {
     console.log("testing profile", profileID);
     var data = {};
-    data.apiName = "profile/" + profileID;
-    data.apiPath = "test";
-    data.body = {};
+    data.apiName = "nfhrest";
+    data.apiPath = "profile/" + profileID + "/test";
+    data.body = {
+      testBackDay: this.state.testBackDay,
+      anotherPam: 'value'
+    };
     this.postData(data, this.testProfileResult);
   }
 
   testProfileResult(result) {
     console.log("testing profile DONE");
+  }
+
+  handleTestBackDate(e) {
+    this.setState({
+      testBackDay: e.target.value ,
+    });
   }
 
   componentDidMount() {
@@ -72,6 +90,12 @@ class Profile extends React.Component {
                 {profile.webhookURL}
               </div>
               <div>
+                <input
+                  type="text"
+                  required
+                  value={this.state.testBackDay}
+                  onChange={this.handleTestBackDate}
+                />
                 <button onClick={() => this.testProfile(profile.id)}>
                   Test Profile
                 </button>
