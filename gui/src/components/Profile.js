@@ -43,8 +43,7 @@ class Profile extends React.Component {
     data.apiName = "nfhrest";
     data.apiPath = "profile/" + profileID + "/test";
     data.body = {
-      testBackDay: this.state.testBackDay,
-      anotherPam: 'value'
+      testBackDay: this.state.testBackDay
     };
     this.postData(data, this.testProfileResult);
   }
