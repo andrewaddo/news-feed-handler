@@ -16,15 +16,22 @@ def getNewsPerProfile(event, context):
   webhookURL = config.getWebhookURL()
   print(lastCheckTimestamp)
   print(config.getProfileConfig())
-  # save new feeds
-  ## publish start statement
-  publishToWebHook("{\"Content\":\"/md **Daily " + config.getProfileConfig()['profile'] + " news**\"}", webhookURL)
-  newFeeds = getNewFeeds(profileID, lastCheckTimestamp)
-
   # mark new timestamp
   # now = datetime.now() - timedelta(days = 30)
   now = datetime.now()
   newLastCheckTimestmap = now.isoformat()
+
+  ## publish start statement
+  publishToWebHook("{\"Content\":\"/md **Daily " + config.getProfileConfig()['profile'] + " news**\"}", webhookURL)
+  
+  # is this a test
+  if 'isTest' in event and event['isTest'] is True:
+    testFrom = datetime.now() - timedelta(days = event['testBackDay'] if 'testBackDay' in event else 3)
+    newFeeds = getNewFeeds(profileID, testFrom.isoformat())
+    return True
+  
+  newFeeds = getNewFeeds(profileID, lastCheckTimestamp)
+  
   # update last check timestamp
   updateLastCheckTimestamp(profileID, newLastCheckTimestmap)
   

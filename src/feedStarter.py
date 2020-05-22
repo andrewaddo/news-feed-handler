@@ -16,7 +16,7 @@ def getNews(event, context):
     for profile in profiles:
         client.invoke(FunctionName='getNewsPerProfile',
                       InvocationType='Event',
-                      Payload=json.dumps({'profileID': profile['id']}))
+                      Payload=json.dumps({'profileID': event['id'], 'isTest': True}))
         # local test! there must be a better way
         # getNewsPerProfile(event={'profileID': profile['id']}, context={})
     return True
