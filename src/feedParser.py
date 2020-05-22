@@ -6,7 +6,7 @@ from dbManager import recordNewFeeds
 from feedPublisher import publishToWebHook
 from configHandler import ConfigHandler
 
-def getNewFeeds(profileID, filterTime):
+def getNewFeeds(profileID, filterTime, isTest=False):
   # read search list
   config = ConfigHandler(profileID)
   searchItems = config.getSearchConfig()
@@ -22,9 +22,9 @@ def getNewFeeds(profileID, filterTime):
       if not searchString.endswith('"'):
         searchString = searchString + '"'
       rssUrl = 'https://news.google.com/rss/search?hl=en-SG&gl=SG&ceid=SG:en&q=' + searchString.replace('"', "%22").replace(' ', '+')
-    getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl)
+    getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl, isTest)
 
-def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl):
+def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl, isTest):
   print("Filtering news for", searchItem["searchItem"], "with rss", rssUrl)
   # get the feed from url
   feeds = feedparser.parse(rssUrl).entries
@@ -56,8 +56,8 @@ def getNewFeedPerSearchItem(profileID, filterTime, searchItem, rssUrl):
     if result is None:
       print("getting duplicate - skipping")
       continue
-    elif result is True:
-      publishFeed(profileID, searchItem, post)
+    elif result is True and isTest is False:
+      publishFeed(profileID, searchItem, post, isTest)
 
 def publishFeed(profileID, searchItem, post):
   description = clean_html(post.description)

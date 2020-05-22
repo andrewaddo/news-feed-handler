@@ -27,7 +27,7 @@ def getNewsPerProfile(event, context):
   # is this a test
   if 'isTest' in event and event['isTest'] is True:
     testFrom = datetime.now() - timedelta(days = event['testBackDay'] if 'testBackDay' in event else 3)
-    newFeeds = getNewFeeds(profileID, testFrom.isoformat())
+    newFeeds = getNewFeeds(profileID, testFrom.isoformat(), isTest=True)
     return True
   
   newFeeds = getNewFeeds(profileID, lastCheckTimestamp)

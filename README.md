@@ -79,3 +79,7 @@ pip install requests
    * amplify graphql needs "id: ID!" even though AppSync console does not need it (This is not true! Probably caused by sth else)
    * key={profile.id} shuts off console's warnings
 1. Sometimes, S3 bucket would need 24h to be propagated across regions. Amplify does not specify region for s3, so there is rare chance APIs failed due to this issue.
+
+## Manual steps
+
+1. Amplify lambda function role (to invoke other lambdas)
