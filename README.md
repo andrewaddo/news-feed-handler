@@ -87,3 +87,7 @@ pip install requests
 ## All the hoops
 
 1. Failed to get feeds from local OSX testing: there's some certificate stuff that needs to be installed when using Python 3.6. Essentially go to /Applications/Python 3.X and run the Install Certificates.command
+
+## Tips and tricks
+
+1. 'amplify publish -c' invalidates cloudfront's cache

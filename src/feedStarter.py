@@ -2,7 +2,7 @@ import boto3
 import json
 from configHandler import ConfigHandler
 # local test! there must be a better way
-# from feedHandler import getNewsPerProfile
+from feedHandler import getNewsPerProfile
 
 client = boto3.client('lambda')
 
@@ -16,7 +16,8 @@ def getNews(event, context):
     config = ConfigHandler()
     profiles = config.getProfileConfigs()
     print("running profiles", profiles)
-    # getNewsPerProfile(event={'profileID': '3994c1d2-0a72-44e9-8b73-31ff6b401dc2', 'testBackDay':1, 'isTest': True}, context={})
+    getNewsPerProfile(event={'profileID': '3994c1d2-0a72-44e9-8b73-31ff6b401dc2', 'testBackDay':1, 'isTest': True}, context={})
+    return True
     for profile in profiles:
         client.invoke(FunctionName='getNewsPerProfile',
                       InvocationType='Event',
