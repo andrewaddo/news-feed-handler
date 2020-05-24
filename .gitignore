@@ -7,7 +7,7 @@
 aws-info.json
 project-info.json
 aws-exports.js
-amplify
+# amplify
 .amplifyrc
 
 

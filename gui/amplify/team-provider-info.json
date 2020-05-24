@@ -1,0 +1,20 @@
+{
+    "test": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-nfhweb-test-171328-authRole",
+            "UnauthRoleArn": "arn:aws:iam::323845505174:role/amplify-nfhweb-test-171328-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::323845505174:role/amplify-nfhweb-test-171328-authRole",
+            "Region": "ap-southeast-1",
+            "DeploymentBucketName": "amplify-nfhweb-test-171328-deployment",
+            "UnauthRoleName": "amplify-nfhweb-test-171328-unauthRole",
+            "StackName": "amplify-nfhweb-test-171328",
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:323845505174:stack/amplify-nfhweb-test-171328/35f5f2e0-9a7a-11ea-ad42-0a43e1cd1fda",
+            "AmplifyAppId": "d1739k5t0gb1r"
+        },
+        "categories": {
+            "auth": {
+                "nfhwebauth": {}
+            }
+        }
+    }
+}

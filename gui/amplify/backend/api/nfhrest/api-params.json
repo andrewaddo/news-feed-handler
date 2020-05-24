@@ -1,0 +1,59 @@
+{
+    "paths": [
+        {
+            "name": "/searchConfig/{id}",
+            "lambdaFunction": "nfhSearchLambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/GET"
+                ]
+            }
+        },
+        {
+            "name": "/profile/{id}",
+            "lambdaFunction": "nfhProfileLambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/GET"
+                ]
+            }
+        }
+    ],
+    "resourceName": "nfhrest",
+    "apiName": "nfhrest",
+    "functionArns": [
+        {
+            "lambdaFunction": "nfhSearchLambda"
+        },
+        {
+            "lambdaFunction": "nfhProfileLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 2,
+        "unauth": 0,
+        "authRoleName": "amplify-nfhweb-test-171328-authRole",
+        "unAuthRoleName": "amplify-nfhweb-test-171328-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "nfhSearchLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "nfhProfileLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "b17f517a"
+}

@@ -1,0 +1,1 @@
+curl -X POST --data-urlencode "payload={\"text\": \"This is posted to #gcp-news and comes from a bot named webhookbot.\"}" https://hooks.slack.com/services/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
