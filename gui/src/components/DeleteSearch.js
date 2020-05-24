@@ -20,7 +20,7 @@ class DeleteSearch extends Component {
           id: this.props.id,
           searchItem: this.props.searchItem,
           searchString: this.props.searchString,
-          rss: this.props.rss
+          rss: this.props.rss,
         },
       }),
       update: (cache, { data: { deleteSearch } }) => {
@@ -47,8 +47,15 @@ class DeleteSearch extends Component {
       <Mutation mutation={gql(deleteSearchConfig)}>
         {(deleteSearch, { loading, error }) => {
           return (
-            <button onClick={() => this.handleDelete(deleteSearch)}>
-              Delete Search
+            <button
+              onClick={() => {
+                if (
+                  window.confirm("Are you sure you wish to delete this item?")
+                )
+                  this.handleDelete(deleteSearch);
+              }}
+            >
+              Delete
             </button>
           );
         }}

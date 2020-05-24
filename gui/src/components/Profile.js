@@ -9,7 +9,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       selectedProfileID: "",
-      testBackDay: 3
+      testBackDay: 3,
     };
     this.onProfileSelect = this.onProfileSelect.bind(this);
     this.testProfileResult = this.testProfileResult.bind(this);
@@ -26,7 +26,7 @@ class Profile extends React.Component {
         // just these 2, no extra non-sense which will messes CORS up
         // OPTIONS returns whatever provided here
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: data.body,
     };
@@ -43,18 +43,19 @@ class Profile extends React.Component {
     data.apiName = "nfhrest";
     data.apiPath = "profile/" + profileID + "/test";
     data.body = {
-      testBackDay: this.state.testBackDay
+      testBackDay: this.state.testBackDay,
     };
     this.postData(data, this.testProfileResult);
   }
 
   testProfileResult(result) {
     console.log("testing profile DONE");
+    alert("testing profile DONE");
   }
 
   handleTestBackDate(e) {
     this.setState({
-      testBackDay: e.target.value ,
+      testBackDay: parseInt(e.target.value, 10),
     });
   }
 
@@ -72,44 +73,62 @@ class Profile extends React.Component {
     const items = this.props.data.listProfileConfigs.items;
 
     return (
-      <div className={styles.divTable}>
-        {items.map((profile) => {
-          return (
-            <div className={styles.divTableRow} key={profile.id}>
-              <div className={styles.divTableCol}>
-                <input
-                  type="radio"
-                  value={profile.id}
-                  checked={this.state.selectedProfileID === profile.id}
-                  onChange={this.onProfileSelect}
-                />
-              </div>
-              <div className={styles.divTableCol}>{profile.profile}</div>
-              <div className={styles.divTableCol + " " + styles.wordwrap}>
-                {profile.webhookURL}
-              </div>
-              <div>
-                <input
-                  type="text"
-                  required
-                  value={this.state.testBackDay}
-                  onChange={this.handleTestBackDate}
-                />
-                <button onClick={() => this.testProfile(profile.id)}>
-                  Test Profile
-                </button>
-              </div>
-              <div className={styles.divTableCol}>
-                <DeleteProfile {...profile} />
-              </div>
-              <div className={styles.divTableCol}>
-                <EditProfile {...profile} />
-              </div>
-              <br />
-            </div>
-          );
-        })}
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Select</th>
+            <th>Profile</th>
+            <th>WebhookURL</th>
+            <th style={{ width: "120px" }}>Backdated Test</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          {items.map((profile) => {
+            return (
+              <tr key={profile.id}>
+                <td>
+                  <input
+                    type="radio"
+                    value={profile.id}
+                    checked={this.state.selectedProfileID === profile.id}
+                    onChange={this.onProfileSelect}
+                  />
+                </td>
+                <td>{profile.profile}</td>
+                <td>{profile.webhookURL}</td>
+                <td>
+                  <input
+                    style={{ width: "50px" }}
+                    type="text"
+                    placeholder="#backdate"
+                    required
+                    value={this.state.testBackDay}
+                    onChange={this.handleTestBackDate}
+                  />
+                  <button
+                    onClick={(e) => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to test this item?"
+                        )
+                      )
+                        this.testProfile(profile.id);
+                    }}
+                  >
+                    Test
+                  </button>
+                </td>
+                <td>
+                  <DeleteProfile {...profile} />
+                </td>
+                <td>
+                  <EditProfile {...profile} />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
 }

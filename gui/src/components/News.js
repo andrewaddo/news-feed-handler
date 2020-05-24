@@ -5,7 +5,7 @@ class News extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNewsID: '',
+      selectedNewsID: "",
     };
     this.onNewsSelect = this.onNewsSelect.bind(this);
   }
@@ -15,8 +15,8 @@ class News extends React.Component {
   }
 
   onNewsSelect(event) {
-    let selectedNewsID = event.target.value
-    this.setState({selectedNewsID: selectedNewsID});
+    let selectedNewsID = event.target.value;
+    this.setState({ selectedNewsID: selectedNewsID });
     this.props.onNewsSelect(event.target.value);
   }
 
@@ -24,17 +24,22 @@ class News extends React.Component {
     const items = this.props.data.listNewss.items;
 
     return (
-      <div className={styles.divTable}>
-        {items.map((news) => {
-          return (
-            <div className={styles.divTableRow} key={news.id}>
-              <div className={styles.divTableCol}>{news.searchConfig.searchItem}</div>
-              <div className={styles.divTableCol}>{news.title}</div>
-              <br />
-            </div>
-          );
-        })}
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Search Item</th>
+            <th>Title</th>
+          </tr>
+          {items.map((news) => {
+            return (
+              <tr key={news.id}>
+                <td>{news.searchConfig.searchItem}</td>
+                <td>{news.title}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
 }

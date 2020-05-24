@@ -2,6 +2,7 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import { createProfileConfig } from "../graphql/mutations";
 import gql from "graphql-tag";
+import styles from "../app.css";
 
 class CreateProfile extends React.Component {
   handleSubmit(e, createProfileConfig) {
@@ -33,13 +34,16 @@ class CreateProfile extends React.Component {
                   onSubmit={(e) => this.handleSubmit(e, createProfileConfig)}
                 >
                   <input
+                    className={styles.input}
                     type="text"
                     placeholder="Profile"
                     ref={(node) => (this.profile = node)}
                     required
                   />
                   <input
+                    className={styles.input}
                     type="text"
+                    width="300px"
                     placeholder="WebhookURL"
                     ref={(node) => (this.webhookURL = node)}
                     required

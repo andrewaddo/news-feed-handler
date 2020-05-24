@@ -19,7 +19,7 @@ class DeleteProfile extends Component {
           __typename: "ModelProfileConnection",
           id: this.props.id,
           profile: this.props.profile,
-          webhookURL: this.props.webhookURL
+          webhookURL: this.props.webhookURL,
         },
       }),
       update: (cache, { data: { deleteProfile } }) => {
@@ -46,8 +46,13 @@ class DeleteProfile extends Component {
       <Mutation mutation={gql(deleteProfileConfig)}>
         {(deleteProfile, { loading, error }) => {
           return (
-            <button onClick={() => this.handleDelete(deleteProfile)}>
-              Delete Profile
+            <button
+              onClick={() => {
+                if (window.confirm("Are you sure you wish to delete this item?"))
+                  this.handleDelete(deleteProfile);
+              }}
+            >
+              Delete
             </button>
           );
         }}

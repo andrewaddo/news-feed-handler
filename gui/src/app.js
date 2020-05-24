@@ -8,8 +8,8 @@ import ScrollableInkTabBar from "rc-tabs/lib/ScrollableInkTabBar";
 import "rc-tabs/assets/index.css";
 import styles from "./app.css";
 import AWSAppSyncClient from "aws-appsync";
-import { Rehydrated } from 'aws-appsync-react';
-import { ApolloProvider } from 'react-apollo';
+import { Rehydrated } from "aws-appsync-react";
+import { ApolloProvider } from "react-apollo";
 import AllProfiles from "./components/AllProfiles";
 import AllNews from "./components/AllNews";
 import CreateProfile from "./components/CreateProfile";
@@ -17,9 +17,9 @@ import CreateProfile from "./components/CreateProfile";
 Auth.configure(awsconfig);
 Amplify.configure(awsconfig);
 
-const GRAPHQL_API_REGION = awsconfig.aws_appsync_region
-const GRAPHQL_API_ENDPOINT_URL = awsconfig.aws_appsync_graphqlEndpoint
-const AUTH_TYPE = awsconfig.aws_appsync_authenticationType
+const GRAPHQL_API_REGION = awsconfig.aws_appsync_region;
+const GRAPHQL_API_ENDPOINT_URL = awsconfig.aws_appsync_graphqlEndpoint;
+const AUTH_TYPE = awsconfig.aws_appsync_authenticationType;
 
 const defaultTabKey = "1";
 
@@ -30,7 +30,8 @@ const client = new AWSAppSyncClient({
   auth: {
     type: AUTH_TYPE,
     // Get the currently logged in users credential.
-    jwtToken: async () => (await Auth.currentSession()).getAccessToken().getJwtToken(),
+    jwtToken: async () =>
+      (await Auth.currentSession()).getAccessToken().getJwtToken(),
   },
   // Amplify uses Amazon IAM to authorize calls to Amazon S3. This provides the relevant IAM credentials.
   // complexObjectsCredentials: () => Auth.currentCredentials()
@@ -49,11 +50,11 @@ class App extends React.Component {
     let apiName = data.apiName;
     let path = "/" + data.apiPath;
     let myInit = {
-      body: data.body
+      body: data.body,
     };
     return await API.post(apiName, path, myInit)
       .then(callback)
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   }
@@ -63,11 +64,11 @@ class App extends React.Component {
     let path = "/" + data.apiPath;
     let myInit = {
       body: data.body,
-      headers: headers
+      headers: headers,
     };
     return await API.post(apiName, path, myInit)
       .then(callback)
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   }
@@ -76,9 +77,9 @@ class App extends React.Component {
   handleSignout() {
     console.log("signing out");
     Auth.signOut()
-      .then(data => console.log(data))
+      .then((data) => console.log(data))
       .then(() => window.location.reload())
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   onTabClick(key) {
@@ -88,15 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <div
-          id="prepareDataSection"
-        >
-          <div className={styles.sectionHeader}>
-            Hi <b>{this.state.userName} </b> {}
-            <a onClick={this.handleSignout} className={styles.a}>
-              Signout
-            </a>
-          </div>
+        <div id="prepareDataSection">
           <div className={styles.formSection}>
             <Tabs
               defaultActiveKey={defaultTabKey}
@@ -115,7 +108,7 @@ class App extends React.Component {
               <TabPane tab="View News" key="2">
                 <div className="App-content">
                   <AllNews />
-                </div>  
+                </div>
               </TabPane>
             </Tabs>
           </div>

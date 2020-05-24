@@ -162,7 +162,9 @@ class AllProfiles extends React.Component {
             if (error) return <p>{error.message}</p>;
             return (
               <div>
-                <button onClick={() => refetch()}>Refetch!</button>
+                <div style={{ "text-align": "right" }}>
+                  <button onClick={() => refetch()}>Refetch!</button>
+                </div>
                 <Profile
                   onProfileSelect={this.onProfileSelect}
                   data={data}
@@ -177,12 +179,12 @@ class AllProfiles extends React.Component {
           }}
         </Query>
         <div>Selected profileID is {this.state.selectedProfileID}</div>
-        <CreateSearch selectedProfileID = {this.state.selectedProfileID} />
+        <CreateSearch selectedProfileID={this.state.selectedProfileID} />
         <Query
           query={gql(listSearchConfigs)}
           variables={{
             filter: {
-              profileID: {"eq": this.state.selectedProfileID},
+              profileID: { eq: this.state.selectedProfileID },
             },
           }}
         >
@@ -200,8 +202,9 @@ class AllProfiles extends React.Component {
 
             return (
               <div>
-                <button onClick={() => refetch()}>Refetch!</button>
-
+                <div style={{ "text-align": "right" }}>
+                  <button onClick={() => refetch()}>Refetch!</button>
+                </div>
                 <SearchConfig
                   data={data}
                   subscribeToMore={() => {

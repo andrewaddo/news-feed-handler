@@ -2,6 +2,7 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import { createSearchConfig } from "../graphql/mutations";
 import gql from "graphql-tag";
+import styles from "../app.css"
 
 class CreateSearch extends React.Component {
   handleSubmit(e, createSearchConfig) {
@@ -42,17 +43,20 @@ class CreateSearch extends React.Component {
                   onSubmit={(e) => this.handleSubmit(e, createSearchConfig)}
                 >
                   <input
+                    className={styles.input}
                     type="text"
                     placeholder="Search Item"
                     ref={(node) => (this.searchItem = node)}
                     required
                   />
                   <input
+                    className={styles.input}
                     type="text"
                     placeholder="Search String"
                     ref={(node) => (this.searchString = node)}
                   />
                   <input
+                    className={styles.input}
                     type="text"
                     placeholder="RSS"
                     ref={(node) => (this.rss = node)}

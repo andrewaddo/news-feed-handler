@@ -53,7 +53,7 @@ class AllNews extends React.Component {
             if (error) return <p>{error.message}</p>;
             return (
               <div>
-                <button onClick={() => refetch()}>Refetch!</button>
+                <div style={{"text-align":"right"}} ><button onClick={() => refetch()}>Refetch!</button></div>
                 <News
                   onNewsSelect={this.onNewsSelect}
                   data={data}

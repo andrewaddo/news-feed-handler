@@ -140,7 +140,7 @@
 
 .container {
   font-weight: 400;
-  max-width: 900px;
+  max-width: 100%;
   margin-top: 20px;
   margin: 5% auto 50px;
 }
@@ -362,7 +362,7 @@
   display: block;
   width: 100%;
   padding: 6px;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--input-color);
   background-color: var(--input-background-color);
   background-image: none;
@@ -371,6 +371,20 @@
   box-sizing: border-box;
   margin-bottom: 6px;
 }
+
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  color: var(--input-color);
+  background-color: var(--input-background-color);
+  background-image: none;
+  border: 1px solid var(--lightGrey);
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+} 
 
 .input:disabled {
   color: #545454;
@@ -424,4 +438,25 @@
   white-space: -pre-wrap;     /* Opera <7 */   
   white-space: -o-pre-wrap;   /* Opera 7 */    
   word-wrap: break-word;      /* IE */
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.table, th, td {
+  border: 1px solid black;
+}
+
+.table tr {
+  transition: background 0.2s ease-in;
+}
+
+.table tr:nth-child(odd) {
+  background: silver;
+}
+
+.table tr:hover {
+  background: silver;
+  cursor: pointer;
 }
