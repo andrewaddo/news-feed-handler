@@ -20,3 +20,4 @@ amplifyxc.config
 src/graphql
 amplify/backend/api/*/parameters.json
 amplify/backend/api/*/transform.conf.json
+amplify/backend/function/*/*-cloudformation-template.json
