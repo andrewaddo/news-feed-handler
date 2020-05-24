@@ -16,5 +16,29 @@
                 "nfhwebauth": {}
             }
         }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-nfhweb-prod-195942-authRole",
+            "UnauthRoleArn": "arn:aws:iam::950879817337:role/amplify-nfhweb-prod-195942-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::950879817337:role/amplify-nfhweb-prod-195942-authRole",
+            "Region": "ap-southeast-1",
+            "DeploymentBucketName": "amplify-nfhweb-prod-195942-deployment",
+            "UnauthRoleName": "amplify-nfhweb-prod-195942-unauthRole",
+            "StackName": "amplify-nfhweb-prod-195942",
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:950879817337:stack/amplify-nfhweb-prod-195942/0f69c4a0-9db6-11ea-ae80-0a6602c8251e",
+            "AmplifyAppId": "d2hne3qgjrwkmc"
+        },
+        "categories": {
+            "auth": {
+                "nfhwebauth": {}
+            },
+            "function": {
+                "AdminQueries915c45f6": {},
+                "nfhSearchLambda": {},
+                "nfhProfileLambda": {},
+                "nfhwebauth": {}
+            }
+        }
     }
 }
