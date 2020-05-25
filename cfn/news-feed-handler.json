@@ -128,8 +128,58 @@
                         "region": "ap-southeast-1"
                     }
                 ]
+            },
+            {
+                "name": "DeployToPROD",
+                "actions": [
+                    {
+                        "name": "Manual-approval",
+                        "actionTypeId": {
+                            "category": "Approval",
+                            "owner": "AWS",
+                            "provider": "Manual",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {},
+                        "outputArtifacts": [],
+                        "inputArtifacts": [],
+                        "region": "ap-southeast-1"
+                    },
+                    {
+                        "name": "Deploy",
+                        "actionTypeId": {
+                            "category": "Deploy",
+                            "owner": "AWS",
+                            "provider": "CloudFormation",
+                            "version": "1"
+                        },
+                        "runOrder": 2,
+                        "configuration": {
+                            "ActionMode": "CREATE_UPDATE",
+                            "Capabilities": "CAPABILITY_IAM,CAPABILITY_AUTO_EXPAND",
+                            "ParameterOverrides": "{\"Account\": \"950879817337\"}",
+                            "RoleArn": "arn:aws:iam::950879817337:role/cfn-lambda-pipeline",
+                            "StackName": "news-feed-handler-dev",
+                            "TemplatePath": "BuildArtifact::outputtemplate.yml"
+                        },
+                        "outputArtifacts": [],
+                        "inputArtifacts": [
+                            {
+                                "name": "BuildArtifact"
+                            }
+                        ],
+                        "roleArn": "arn:aws:iam::950879817337:role/mgn-codepipeline-nfh",
+                        "region": "ap-southeast-1"
+                    }
+                ]
             }
         ],
-        "version": 3
+        "version": 5
+    },
+    "metadata": {
+        "pipelineArn": "arn:aws:codepipeline:ap-southeast-1:479756444842:news-feed-handler",
+        "created": "2020-05-16T23:45:30.277000+08:00",
+        "updated": "2020-05-25T00:37:29.763000+08:00"
     }
 }
