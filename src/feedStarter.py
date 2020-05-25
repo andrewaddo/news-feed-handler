@@ -16,8 +16,8 @@ def getNews(event, context):
     config = ConfigHandler()
     profiles = config.getProfileConfigs()
     print("running profiles", profiles)
-    getNewsPerProfile(event={'profileID': '3994c1d2-0a72-44e9-8b73-31ff6b401dc2', 'testBackDay':1, 'isTest': True}, context={})
-    return True
+    # getNewsPerProfile(event={'profileID': '3994c1d2-0a72-44e9-8b73-31ff6b401dc2', 'testBackDay':1, 'isTest': True}, context={})
+    # return True
     for profile in profiles:
         client.invoke(FunctionName='getNewsPerProfile',
                       InvocationType='Event',
