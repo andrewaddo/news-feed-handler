@@ -22,7 +22,7 @@ class CreateSearch extends React.Component {
         },
       },
     }).then((res) => {
-      this.profileID.value = "";
+      // clear up input value
       this.searchItem.value = "";
       this.searchString.value = "";
       this.rss.value = "";

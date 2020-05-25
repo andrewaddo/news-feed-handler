@@ -35,7 +35,6 @@ class SearchConfig extends React.Component {
                 <td>
                   <EditSearch {...searchConfig} />
                 </td>
-                <br />
               </tr>
             );
           })}
