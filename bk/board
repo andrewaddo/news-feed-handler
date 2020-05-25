@@ -1,1 +1,2 @@
 curl -X POST --data-urlencode "payload={\"text\": \"This is posted to #gcp-news and comes from a bot named webhookbot.\"}" https://hooks.slack.com/services/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
+AWS4-HMAC-SHA256 Credential=ASIA52ZG2RZ45VORWV6S/20200524/ap-southeast-1/execute-api/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-security-token, Signature=c58cbf4ea7f25c5b765a91d9dc4aa060f9eef104ba3539065d6600b875e5e7b9
