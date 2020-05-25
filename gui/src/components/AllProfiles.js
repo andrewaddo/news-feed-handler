@@ -162,7 +162,7 @@ class AllProfiles extends React.Component {
             if (error) return <p>{error.message}</p>;
             return (
               <div>
-                <div style={{ "text-align": "right" }}>
+                <div style={{ "textAlign": "right" }}>
                   <button onClick={() => refetch()}>Refetch!</button>
                 </div>
                 <Profile
@@ -202,7 +202,7 @@ class AllProfiles extends React.Component {
 
             return (
               <div>
-                <div style={{ "text-align": "right" }}>
+                <div style={{ "textAlign": "right" }}>
                   <button onClick={() => refetch()}>Refetch!</button>
                 </div>
                 <SearchConfig

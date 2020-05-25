@@ -23,10 +23,11 @@ class Profile extends React.Component {
     let path = "/" + data.apiPath;
     let myInit = {
       headers: {
-        // just these 2, no extra non-sense which will messes CORS up
-        // OPTIONS returns whatever provided here
-        "Access-Control-Allow-Origin": "*",
+        // Remove the Access-Control-Allow-Methods and the Access-Control-Allow-Headers from the HttpHeaders in the frontend code. These headers are supposed be sent as response headers from the server
+        // "Access-Control-Allow-Headers": "Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent",
+        // "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        // 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
       },
       body: data.body,
     };
