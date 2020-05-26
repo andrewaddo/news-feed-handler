@@ -13,7 +13,7 @@ def getNewFeeds(profileID, filterTime, isTest=False):
     searchItems = config.getSearchConfig()
     for searchItem in searchItems:
         searchString = searchItem['searchString'] if 'searchString' in searchItem else None
-        if 'rss' in searchItem and not searchItem['rss']:
+        if 'rss' in searchItem and searchItem['rss']:
             rssUrl = searchItem['rss']
         else:
             if searchString == 'SPECIAL_HARD_TO_SEARCH':
