@@ -69,4 +69,7 @@ pip install requests
 
 ## Tips and tricks
 
+1. 'Search string' needs to be fined tune manually (until we have AI/ML elements in this program). For examples, if we are searching for news for company Wiz.AI.
+   * If the search string is "Wiz", you may have got news from "Wiz Khalifa" which you probably don't want
+   * If the search string is "Wiz.AI", the results will be more relevant
 1. 'amplify publish -c' invalidates cloudfront's cache
