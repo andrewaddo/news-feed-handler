@@ -2,6 +2,11 @@
 
 Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, Slack)
 
+## Features
+
+1. Segregate profiles/search configurations by user ID
+1. Display retrieved news (Notes: if profile/search records are deleted, associated news will not be displayed)
+
 ## Architecture
 
 ![architecture](./img/architecture.drawio.svg "high-level architecture")
@@ -60,6 +65,7 @@ pip install requests
 ## All the hoops
 
 1. Failed to get feeds from local OSX testing: there's some certificate stuff that needs to be installed when using Python 3.6. Essentially go to /Applications/Python 3.X and run the Install Certificates.command
+1. It looks like relational database would be a better choice for Profile/SearchConfig with many occasions joins and data integrity is needed (e.g. deleting profile should be cascaded for search config and news)
 
 ## Tips and tricks
 

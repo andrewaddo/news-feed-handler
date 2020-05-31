@@ -118,7 +118,7 @@ def filterFeed(posts, searchItem):
             if blackitem in json.dumps(post.title):
                 match = True
                 break
-        if ('Strict' in searchItem and searchItem['strict'] == "NAME_ON_TITLE"):
+        if ('strict' in searchItem and searchItem['strict'] == "NAME_ON_TITLE"):
             if not searchItem["searchString"] in post.title:
                 match = True
         if match == False:

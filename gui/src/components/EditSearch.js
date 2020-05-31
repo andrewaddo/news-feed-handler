@@ -12,12 +12,14 @@ class EditSearch extends React.Component {
       searchData: {
         searchItem: this.props.searchItem,
         searchString: this.props.searchString,
+        strict: this.props.strict,
         rss: this.props.rss, 
       },
     };
     this.handleModal = this.handleModal.bind(this);
     this.handleSearchItem = this.handleSearchItem.bind(this);
     this.handleSearchString = this.handleSearchString.bind(this);
+    this.handleStrict = this.handleStrict.bind(this);
     this.handleRSS = this.handleRSS.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,6 +38,7 @@ class EditSearch extends React.Component {
           id: this.props.id,
           searchItem: this.state.searchData.searchItem,
           searchString: this.state.searchData.searchString,
+          strict: this.state.searchData.strict,
           rss: this.state.searchData.rss,
         },
       },
@@ -51,6 +54,12 @@ class EditSearch extends React.Component {
   handleSearchString(e) {
     this.setState({
       searchData: { ...this.state.searchData, searchString: e.target.value },
+    });
+  }
+
+  handleStrict(e) {
+    this.setState({
+      searchData: { ...this.state.searchData, strict: e.target.value },
     });
   }
 
@@ -88,6 +97,13 @@ class EditSearch extends React.Component {
                     />
                     <input
                       type="text"
+                      placeholder="strict"
+                      value={this.state.searchData.strict}
+                      onChange={this.handleStrict}
+                    />
+                    <input
+                      type="text"
+                      placeholder="rss"
                       className={styles.wordwrap}
                       value={this.state.searchData.rss}
                       onChange={this.handleRSS}

@@ -42,6 +42,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       tabKey: defaultTabKey,
+      userName: this.props.authData.username
     };
     this.onTabClick = this.onTabClick.bind(this);
   }
@@ -90,6 +91,12 @@ class App extends React.Component {
     return (
       <div className={styles.container}>
         <div id="prepareDataSection">
+          {/* <div className={styles.sectionHeader}>
+            Hi <b>{this.state.userName} </b> {}
+            <a onClick={this.handleSignout} className={styles.a}>
+              Signout
+            </a>
+          </div> */}
           <div className={styles.formSection}>
             <Tabs
               defaultActiveKey={defaultTabKey}
@@ -101,13 +108,13 @@ class App extends React.Component {
             >
               <TabPane tab="Configure" key="1">
                 <div className="App-content">
-                  <CreateProfile />
-                  <AllProfiles />
+                  <CreateProfile userID = {this.state.userName} />
+                  <AllProfiles userID = {this.state.userName}/>
                 </div>
               </TabPane>
               <TabPane tab="View News" key="2">
                 <div className="App-content">
-                  <AllNews />
+                  <AllNews userID = {this.state.userName}/>
                 </div>
               </TabPane>
             </Tabs>

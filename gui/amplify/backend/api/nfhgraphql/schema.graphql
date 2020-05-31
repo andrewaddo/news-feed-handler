@@ -2,6 +2,7 @@ type ProfileConfig @model {
   id: ID!
   profile: String!
   webhookURL: String!
+  userID: String!
   searchConfigs: [SearchConfig] @connection(keyName: "byProfile", fields: ["id"])
 }
 
@@ -10,6 +11,7 @@ type SearchConfig @model @key(name: "byProfile", fields: ["profileID", "searchIt
   profileID: ID!
   searchItem: String!
   searchString: String
+  strict: String
   rss: String
   profileConfig: ProfileConfig @connection(fields: ["profileID"])
   News: [News] @connection(keyName: "bySearchConfig", fields: ["id"])

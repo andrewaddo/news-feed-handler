@@ -12,6 +12,7 @@ class CreateProfile extends React.Component {
         input: {
           profile: this.profile.value,
           webhookURL: this.webhookURL.value,
+          userID: this.props.userID
         },
       },
     }).then((res) => {

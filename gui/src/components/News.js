@@ -31,12 +31,13 @@ class News extends React.Component {
             <th>Title</th>
           </tr>
           {items.map((news) => {
-            return (
+            // display news for valid search config 
+            return news.searchConfig && 
               <tr key={news.id}>
                 <td>{news.searchConfig.searchItem}</td>
                 <td>{news.title}</td>
               </tr>
-            );
+            ;
           })}
         </tbody>
       </table>

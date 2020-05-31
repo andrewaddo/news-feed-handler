@@ -18,7 +18,7 @@ class AllProfiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProfileID: "",
+      selectedProfileID: ""
     };
     this.onProfileSelect = this.onProfileSelect.bind(this);
   }
@@ -148,7 +148,14 @@ class AllProfiles extends React.Component {
   render() {
     return (
       <div>
-        <Query query={gql(listProfileConfigs)}>
+        <Query
+          query={gql(listProfileConfigs)}
+          variables={{
+            filter: {
+              userID: { eq: this.props.userID },
+            },
+          }}
+        >
           {({
             loading,
             data,
@@ -162,7 +169,7 @@ class AllProfiles extends React.Component {
             if (error) return <p>{error.message}</p>;
             return (
               <div>
-                <div style={{ "textAlign": "right" }}>
+                <div style={{ textAlign: "right" }}>
                   <button onClick={() => refetch()}>Refetch!</button>
                 </div>
                 <Profile
@@ -179,44 +186,48 @@ class AllProfiles extends React.Component {
           }}
         </Query>
         <div>Selected profileID is {this.state.selectedProfileID}</div>
-        <CreateSearch selectedProfileID={this.state.selectedProfileID} />
-        <Query
-          query={gql(listSearchConfigs)}
-          variables={{
-            filter: {
-              profileID: { eq: this.state.selectedProfileID },
-            },
-          }}
-        >
-          {({
-            loading,
-            data,
-            error,
-            subscribeToMore,
-            refetch,
-            networkStatus,
-          }) => {
-            if (networkStatus === 4) return "Refetching!";
-            if (loading) return <p>loading...</p>;
-            if (error) return <p>{error.message}</p>;
+        {this.state.selectedProfileID && (
+          <CreateSearch selectedProfileID={this.state.selectedProfileID} />
+        )}
+        {this.state.selectedProfileID && (
+          <Query
+            query={gql(listSearchConfigs)}
+            variables={{
+              filter: {
+                profileID: { eq: this.state.selectedProfileID },
+              },
+            }}
+          >
+            {({
+              loading,
+              data,
+              error,
+              subscribeToMore,
+              refetch,
+              networkStatus,
+            }) => {
+              if (networkStatus === 4) return "Refetching!";
+              if (loading) return <p>loading...</p>;
+              if (error) return <p>{error.message}</p>;
 
-            return (
-              <div>
-                <div style={{ "textAlign": "right" }}>
-                  <button onClick={() => refetch()}>Refetch!</button>
+              return (
+                <div>
+                  <div style={{ textAlign: "right" }}>
+                    <button onClick={() => refetch()}>Refetch!</button>
+                  </div>
+                  <SearchConfig
+                    data={data}
+                    subscribeToMore={() => {
+                      this.subNewSearch(subscribeToMore),
+                        this.subUpdatedSearch(subscribeToMore),
+                        this.subDeletedSearch(subscribeToMore);
+                    }}
+                  />
                 </div>
-                <SearchConfig
-                  data={data}
-                  subscribeToMore={() => {
-                    this.subNewSearch(subscribeToMore),
-                      this.subUpdatedSearch(subscribeToMore),
-                      this.subDeletedSearch(subscribeToMore);
-                  }}
-                />
-              </div>
-            );
-          }}
-        </Query>
+              );
+            }}
+          </Query>
+        )}
       </div>
     );
   }

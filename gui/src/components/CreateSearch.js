@@ -18,6 +18,7 @@ class CreateSearch extends React.Component {
           profileID: this.props.selectedProfileID,
           searchItem: this.searchItem.value,
           searchString: this.searchString.value,
+          strict: this.strict.value,
           rss: this.rss.value,
         },
       },
@@ -25,6 +26,7 @@ class CreateSearch extends React.Component {
       // clear up input value
       this.searchItem.value = "";
       this.searchString.value = "";
+      this.strict.value = "";
       this.rss.value = "";
     });
   }
@@ -54,6 +56,12 @@ class CreateSearch extends React.Component {
                     type="text"
                     placeholder="Search String"
                     ref={(node) => (this.searchString = node)}
+                  />
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="strict e.g. NAME_ON_TITLE"
+                    ref={(node) => (this.strict = node)}
                   />
                   <input
                     className={styles.input}
