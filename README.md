@@ -13,7 +13,7 @@ Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, 
 
 ## Data model
 
-![data model](./img/data-model.png "data model")
+![data model](./img/data-model.drawio.svg "data model")
 
 ## CICD cross accounts
 
@@ -25,7 +25,7 @@ Following are not exact match, but it explains how cross account works with Code
 
 1. Cross account role (PassRole) and CFN role on the remote account
 
-![cross-account](./img/details-cross-account-pipeline.png "cross-account")
+![cross-account](./img/details-cross-account-pipeline.drawio.svg "cross-account")
 
 **Important**:
 
