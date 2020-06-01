@@ -1,9 +1,9 @@
 import sys
-sys.path.insert(0, 'src')
+sys.path.insert(0, '.')
 
-from setup import importCustomerConfigToDB
-from dbManager import getRecordCount
-from feedHandler import getNewsPerProfile
+from src.setup import importCustomerConfigToDB
+from src.dbManager import getRecordCount
+from src.feedHandler import getNewsPerProfile
 
 def test_importCustomerConfig():
   importCustomerConfigToDB('FinTech.csv')

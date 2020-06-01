@@ -1,8 +1,8 @@
 import unittest
 import sys
-sys.path.insert(0, 'src')
+sys.path.insert(0, '.')
 
-from propertiesHandler import PropertiesHandler
+from src.propertiesHandler import PropertiesHandler
 
 properties = PropertiesHandler()
 
