@@ -17,7 +17,7 @@ Handle RSS feeds, dedup, filters and publish to messaging channels (e.g. Chime, 
 
 ## CICD cross accounts
 
-![cicd](./img/cross-account-cicd.png "cicd")
+![cicd](./img/cross-account-cicd.drawio.svg "cicd")
 
 Notes: Management account does not sound like a good idea compared to using Master account. CFN stackset is only supporting Master account.
 
@@ -25,7 +25,7 @@ Following are not exact match, but it explains how cross account works with Code
 
 1. Cross account role (PassRole) and CFN role on the remote account
 
-![cross-account](./img/details-cross-account-pipeline.drawio.svg "cross-account")
+![cross-account](./img/details-cross-account-pipeline.png "cross-account")
 
 **Important**:
 
