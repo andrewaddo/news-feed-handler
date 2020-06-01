@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, 'src')
+
 from setup import importCustomerConfigToDB
 from dbManager import getRecordCount
 from feedHandler import getNewsPerProfile

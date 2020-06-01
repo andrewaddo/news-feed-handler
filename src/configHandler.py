@@ -31,12 +31,3 @@ class ConfigHandler:
 
   def getWebhookURL(self):
     return self.profileConfig['webhookURL']
-
-  def getProfileConfigTable(self):
-    return self.properties['main']['PROFILECONFIG_TABLE']
-  
-  def getSearchConfigTable(self):
-    return self.properties['main']['SEARCHCONFIG_TABLE']
-  
-  def getNewsTable(self):
-    return self.properties['main']['NEWS_TABLE']
