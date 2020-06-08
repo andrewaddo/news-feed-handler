@@ -6,7 +6,7 @@ type ProfileConfig @model {
   searchConfigs: [SearchConfig] @connection(keyName: "byProfile", fields: ["id"])
 }
 
-type SearchConfig @model @key(name: "byProfile", fields: ["profileID", "searchItem"]) {
+type SearchConfig @model @key(name: "byProfile", fields: ["profileID"]) {
   id: ID!
   profileID: ID!
   searchItem: String!

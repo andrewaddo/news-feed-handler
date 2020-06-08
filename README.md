@@ -67,6 +67,15 @@ pip install requests
 1. Failed to get feeds from local OSX testing: there's some certificate stuff that needs to be installed when using Python 3.6. Essentially go to /Applications/Python 3.X and run the Install Certificates.command
 1. It looks like relational database would be a better choice for Profile/SearchConfig with many occasions joins and data integrity is needed (e.g. deleting profile should be cascaded for search config and news)
 
+## Versions and resources
+
+1. V1
+1. V2 - GUI
+1. V3 - News quality with Data pipelines and AI/ML
+   * https://www.kaggle.com/rootuser/worldnews-on-reddit
+   * https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html
+   * https://en.wikipedia.org/wiki/Tf%E2%80%93idf
+
 ## Tips and tricks
 
 1. 'Search string' needs to be fined tune manually (until we have AI/ML elements in this program). For examples, if we are searching for news for company Wiz.AI.
